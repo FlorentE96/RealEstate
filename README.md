@@ -11,14 +11,14 @@ TODO
 
 JavaDoc comments are always written between `/**` and `*/` and each line has to begin with `*`
 
-- @param : to detail the input parameter of a method
-- @return : to detail the return parameter of a method
-- @throws : to detail the exceptions thrown by the method if raised
-- @author : the author of the class
-- @version : the version of the class
-- @see : to add a reference to another class
-- @since : the version since which the class exists
-- @deprecated : indicates that a class is deprecated, since when and replaced by which class.
+- `@param` : to detail the input parameter of a method
+- `@return` : to detail the return parameter of a method
+- `@throws` : to detail the exceptions thrown by the method if raised
+- `@author` : the author of the class
+- `@version` : the version of the class
+- `@see` : to add a reference to another class
+- `@since` : the version since which the class exists
+- `@deprecated` : indicates that a class is deprecated, since when and replaced by which class.
 
 ## Guide for Git :
 Add sources to the repo by right-clicking the source, then Git -> Add.
@@ -50,3 +50,20 @@ The tradition when you use a parameter to initialize a variable is to use the sa
         name = _name;
     }
 It's important because it adds more clarity to the code.
+
+## Readme.md
+
+You should use this file to add some information about the project 
+and things that are at a higher level than the JavaDoc (for example usage 
+examples, screen captures, etc.)
+
+The syntax is quite basic : 
+
+- use `#` to specify titles (the highest level of
+title is `#`, the second highest is `##` etc.) 
+- Bold text is surrounded by `**` and italic by `*`
+- You can add a list by jumping a line and using `-` before each element
+- you can quote code by adding a tabulation before each line
+- for inline code use \` around your code.
+
+More about Markdown syntax [here](https://mail.google.com/mail/u/0/#inbox/15f3a5a563f38037).
