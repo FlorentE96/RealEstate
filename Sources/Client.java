@@ -12,7 +12,7 @@
  *
  * @author  Florent
  * @author  Miron
- * @version 0.1
+ * @version 0.2
  */
 public class Client extends Person {
     /**
