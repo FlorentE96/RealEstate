@@ -1,7 +1,24 @@
-// TODO: write JavaDoc
-public class Owner extends Client
+/**
+ * <b>Owner is a subclass of Client.</b>
+ * <p>Each owner has at least:
+ * <ul>
+ *     <li>A array with ID of all properties owned</li>
+ * </ul></p>
+ *
+ * @see     Client
+ *
+ * @author  Florent
+ * @author  Miron
+ * @version 0.1
+ */public class Owner extends Client
 {
-    private Property propertyOwned[];  //coloquei apenas o ID da propriedade para facilitar a programacao
+    /**
+     * The properties of the owner.
+     *
+     * @see
+     */
+    //TODO:adicionar via collection
+    //private Property propertyOwned[];
 
     public Owner(String _name, int _ID)
     {
@@ -9,11 +26,12 @@ public class Owner extends Client
     }
 
     /**
-    * //adiciona uma propriedade ao dono apartir de um ID
-    * //Este metodo é para ser usado dentro da classe propriedade quando for criar alguma propriedade no sistema
+    *  Add a property to the owner
     */
-    public void addPropertie(int ID)
+    public void addProperty(Property _property)
     {
-        //adicionar ID da propriedade ao owner
+        //TODO:
+        //adicionar via collection
+        //propertyOwned[] = _property;
     }
 }
