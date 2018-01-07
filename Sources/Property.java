@@ -18,6 +18,8 @@
  */
 // TODO: Write JavaDoc
 public abstract class Property {
+
+    public enum HouseStatus {rented, owned};
     /**
      * The neighbourhood of the property.
      *
@@ -64,13 +66,13 @@ public abstract class Property {
      *
      * @see
      */
-    private bollean hadGarage;
+    private boolean hadGarage;
     /**
      * Constructor for the class.
      */
-    public Property(String _neighbourhood, String _nRooms, double _price, HouseStatus _status, Owner _owner, Renter _renter, bollean _hadGarage){
+    public Property(String _neighbourhood, String _nRooms, double _price, HouseStatus _status, Owner _owner, Renter _renter, boolean _hadGarage){
 
-        neighbouhood = _neighbouhood;
+        neighbouhood = _neighbourhood;
         nRooms = _nRooms;
         price = _price;
         status = _status;

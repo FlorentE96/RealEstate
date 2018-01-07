@@ -20,8 +20,8 @@ public class House extends Property {
      */
     private bollean hasGarden;
 
-    public House(String _neighbourhood, String _nRooms, double _price, HouseStatus _status, Owner _owner, Renter _renter, bollean _hadGarage, bollean _hasGarden){
-            super(String _neighbourhood, String _nRooms, double _price, HouseStatus _status, Owner _owner, Renter _renter, bollean _hadGarage)
+    public House(String _neighbourhood, String _nRooms, double _price, HouseStatus _status, Owner _owner, Renter _renter, boolean _hadGarage, boolean _hasGarden){
+            super(_neighbourhood, _nRooms, _price, _status, _owner, _renter, _hadGarage)
             hasGarden = _hasGarden;
         }
 
