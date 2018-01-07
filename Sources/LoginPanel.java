@@ -7,17 +7,13 @@ import java.io.*;
 import java.util.*;
 
 public class LoginPanel extends JPanel
-                        implements ActionListener
 {
     // variables d'instance - remplacez l'exemple qui suit par le vôtre
     private JTextField textID;
     private JPasswordField textPassword;
-    private JButton buttonLogin;
+    private JButton buttonLogin, buttonRegister;
 
-    /**
-     * Constructeur d'objets de classe PainelCadastro
-     */
-    public LoginPanel()
+    public LoginPanel(ActionListener _listener)
     {
         JPanel titlePanel, loginPanel, buttonPanel;
         titlePanel = new JPanel();
@@ -29,9 +25,13 @@ public class LoginPanel extends JPanel
         textID = new JTextField(15);
         textPassword= new JPasswordField(15);
         buttonLogin = new JButton("Login");
+        buttonRegister = new JButton("Register");
 
         buttonLogin.setActionCommand("login");
-        buttonLogin.addActionListener(this);
+        buttonLogin.addActionListener(_listener);
+
+        buttonRegister.setActionCommand("register");
+        buttonRegister.addActionListener(_listener);
 
         idLabel = new JLabel("ID:");
         passwordLabel = new JLabel("Password:");
@@ -50,6 +50,7 @@ public class LoginPanel extends JPanel
         loginPanel.add(passwordLabel);
         loginPanel.add(textPassword);
         buttonPanel.add(buttonLogin);
+        buttonPanel.add(buttonRegister);
 
         this.add(titlePanel);
         this.add(loginPanel);
@@ -57,13 +58,9 @@ public class LoginPanel extends JPanel
 
     }
 
-    public void actionPerformed(ActionEvent e)
-    {
-        String command = e.getActionCommand();
-        if(command.equals("add"))
-        {
-        }
-    }
+    public String getLogin() { return this.textID.getText(); }
+
+    public char[] getPassword() { return this.textPassword.getPassword(); }
 
     public void clearGUIValues()
     {
