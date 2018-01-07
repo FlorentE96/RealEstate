@@ -1,6 +1,6 @@
 // TODO: Implement
 // TODO: Write JavaDoc
-public class Property {
+public abstract class Property {
     public Property() {
     }
 }

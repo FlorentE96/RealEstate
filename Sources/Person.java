@@ -13,7 +13,7 @@
  * @author  Miron
  * @version 0.1
  */
-public class Person {
+public abstract class Person {
     /**
      * The name of the person.
      *
@@ -78,4 +78,6 @@ public class Person {
     public void setName(String _name) {
         name = _name;
     }
+
+    //public abstract String getAllInfo();
 }
