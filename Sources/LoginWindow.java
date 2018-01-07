@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.event.*;
 import java.io.*;
-
+import java.util.Arrays;
 
 /**
  * <b>LoginWindow is the dialog for loging a user</b>
@@ -39,6 +39,8 @@ public class LoginWindow extends JFrame implements ActionListener
      */
     private boolean isLogged;
 
+
+    private String myKey;
     /**
      * Constructor of LoginWindow.
      * Sets the window's title, and configures the panes/menu.
@@ -47,7 +49,7 @@ public class LoginWindow extends JFrame implements ActionListener
     public LoginWindow()
     {
         super("Login");
-
+        myKey = "Mary has one cat"; // NOTE: has to be 16 bytes
         isLogged = false;
 
         myLoginPanel = new LoginPanel(this);
@@ -107,12 +109,32 @@ public class LoginWindow extends JFrame implements ActionListener
             // TODO : if wrong password, diplay error dialog
             // TODO : if right password, set login
             String login = myLoginPanel.getLogin();
-            char[] password = myLoginPanel.getPassword();
-            isLogged = true;
+            char[] correctPassword = this.getPassword(login);
+            if(correctPassword != null) {
+                char[] typedPassword = myLoginPanel.getPassword();
+                if (typedPassword.length != correctPassword.length) {
+                    isLogged = false;
+                } else {
+                    isLogged = Arrays.equals(typedPassword, correctPassword);
+                }
+            }
+            else
+            {
+                isLogged = false;
+            }
+
+            if(!isLogged)
+            {
+                JOptionPane.showMessageDialog(null, "Login or password incorrect.");
+            }
+            else
+                JOptionPane.showMessageDialog(null, "You're in, "+login+".");
         }
         else if(command.equals("register"))
         {
+            // TODO : check if already existing
             registerNewUser(myLoginPanel.getLogin(), myLoginPanel.getPassword());
+            JOptionPane.showMessageDialog(null, "Registration successful");
         }
         else if(command.equals("quit"))
             System.exit(0);
@@ -150,7 +172,6 @@ public class LoginWindow extends JFrame implements ActionListener
     }
 
     private void registerNewUser(String _login, char[] _password) {
-        String myKey = "Mary has one cat"; // NOTE: has to be 16 bytes
         String loginEncrypted;
         String passwordEncrypted;
         try {
@@ -171,5 +192,34 @@ public class LoginWindow extends JFrame implements ActionListener
             System.out.println(ex.getMessage());
             ex.printStackTrace();
         }
+    }
+
+    private char[] getPassword(String _login)
+    {
+        try {
+            File passwordFile = new File("passwords.txt");
+            FileReader fr = new FileReader(passwordFile);
+            BufferedReader br = new BufferedReader(fr);
+
+            while (br.ready()) {
+                String line = br.readLine();
+                String[] csvData = line.split(",");
+
+                try {
+                    if (EncryptionUtils.decrypt(myKey, csvData[0]).equals(_login)) {
+                        return EncryptionUtils.decrypt(myKey, csvData[1]).toCharArray();
+                    }
+                } catch (EncryptionException ex) {
+                    System.out.println(ex.getMessage());
+                    ex.printStackTrace();
+                }
+            }
+
+        } catch (IOException ex)
+        {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+        return null;
     }
 }
