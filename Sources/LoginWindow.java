@@ -105,9 +105,6 @@ public class LoginWindow extends JFrame implements ActionListener
         }
         else if(command.equals("login"))
         {
-            // TODO : check the password and login
-            // TODO : if wrong password, diplay error dialog
-            // TODO : if right password, set login
             String login = myLoginPanel.getLogin();
             char[] correctPassword = this.getPassword(login);
             if(correctPassword != null) {
@@ -172,25 +169,19 @@ public class LoginWindow extends JFrame implements ActionListener
     }
 
     private void registerNewUser(String _login, char[] _password) {
-        String loginEncrypted;
-        String passwordEncrypted;
         try {
             File passwordFile = new File("passwords.txt");
             FileWriter fw = new FileWriter(passwordFile, true);
             BufferedWriter bw = new BufferedWriter(fw);
 
-            loginEncrypted = EncryptionUtils.encrypt(myKey, _login);
-            passwordEncrypted = EncryptionUtils.encrypt(myKey, _password);
-
-            bw.write(loginEncrypted + ";" + passwordEncrypted + "\n");
+            bw.write(_login);
+            bw.write(",");
+            bw.write(_password);
+            bw.newLine();
             bw.close();
             fw.close();
-        } catch (EncryptionException ex) {
-            System.out.println(ex.getMessage());
-            ex.printStackTrace();
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
-            ex.printStackTrace();
         }
     }
 
@@ -204,17 +195,13 @@ public class LoginWindow extends JFrame implements ActionListener
             while (br.ready()) {
                 String line = br.readLine();
                 String[] csvData = line.split(",");
-
-                try {
-                    if (EncryptionUtils.decrypt(myKey, csvData[0]).equals(_login)) {
-                        return EncryptionUtils.decrypt(myKey, csvData[1]).toCharArray();
-                    }
-                } catch (EncryptionException ex) {
-                    System.out.println(ex.getMessage());
-                    ex.printStackTrace();
+                if (csvData[0].equals(_login)) {
+                    return csvData[1].toCharArray();
                 }
             }
 
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "No user has been registered...\n Please register a user first");
         } catch (IOException ex)
         {
             System.out.println(ex.getMessage());
