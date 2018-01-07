@@ -4,21 +4,43 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 
-public class MainWindow extends JFrame implements ActionListener{
+public class MainWindow
+        extends JFrame
+        implements ActionListener
+{
+    private PerformancePanel myPerformancePanel;
+    private ClientsPanel myClientsPanel;
+    private SalePanel mySalePanel;
 
     public MainWindow()
     {
         super("Real Estate Manager");
 
-        this.setContentPane(makePanel());
+        this.setContentPane(this.makePanel());
         this.setJMenuBar(makeMenu());
+
+        this.pack();
+        this.setMaximumSize(this.getSize());
+        this.setMinimumSize(this.getSize());
+
+        this.setVisible(true);
     }
 
     private JPanel makePanel()
     {
         JPanel mainPanel = new JPanel();
 
-        mainPanel.add(new LoginPanel(this));
+        myPerformancePanel = new PerformancePanel();
+        myClientsPanel = new ClientsPanel();
+        mySalePanel = new SalePanel();
+
+        JTabbedPane myTabbedPane = new JTabbedPane();
+
+        myTabbedPane.addTab("Performance", myPerformancePanel);
+        myTabbedPane.addTab("Clients", myClientsPanel);
+        myTabbedPane.addTab("Sale", mySalePanel);
+
+        mainPanel.add(myTabbedPane);
 
         return mainPanel;
     }
@@ -28,21 +50,17 @@ public class MainWindow extends JFrame implements ActionListener{
         //Barras de menus são compostas por menus
         JMenuBar mbr_barra = new JMenuBar();
         JMenu fileMenu;
-        JMenuItem newUser, quit;
+        JMenuItem quit;
 
 
         fileMenu = new JMenu("File");
         mbr_barra.add(fileMenu);
 
-        newUser = new JMenuItem("New User");
         quit = new JMenuItem("Quit");
 
-        fileMenu.add(newUser);
-        fileMenu.addSeparator();
+        // fileMenu.addSeparator();
         fileMenu.add(quit);
 
-        newUser.setActionCommand("new");
-        newUser.addActionListener(this);
         quit.setActionCommand("quit");
         quit.addActionListener(this);
 
@@ -52,10 +70,7 @@ public class MainWindow extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e)
     {
         String command = e.getActionCommand();
-        if(command.equals("new"))
-        {
-        }
-        else if(command.equals("quit"))
+        if(command.equals("quit"))
             System.exit(0);
     }
 

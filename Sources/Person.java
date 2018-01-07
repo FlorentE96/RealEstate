@@ -69,7 +69,7 @@ public abstract class Person {
     }
 
     /**
-     * Setter for ID.
+     * Setter for name.
      *
      * @param _name     the new name of the person.
      *
@@ -79,5 +79,16 @@ public abstract class Person {
         name = _name;
     }
 
-    //public abstract String getAllInfo();
+    /**
+     * Setter for ID.
+     *
+     * @param _ID     the new name of the person.
+     *
+     * @see             Person#name
+     */
+    public void setID(int _ID) {
+        ID = _ID;
+    }
+
+//    public abstract String getAllInfo();
 }

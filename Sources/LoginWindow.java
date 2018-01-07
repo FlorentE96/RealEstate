@@ -40,7 +40,7 @@ public class LoginWindow extends JFrame implements ActionListener
     private boolean isLogged;
 
 
-    private String myKey;
+//    private String myKey;
     /**
      * Constructor of LoginWindow.
      * Sets the window's title, and configures the panes/menu.
@@ -49,13 +49,13 @@ public class LoginWindow extends JFrame implements ActionListener
     public LoginWindow()
     {
         super("Login");
-        myKey = "Mary has one cat"; // NOTE: has to be 16 bytes
+//        myKey = "Mary has one cat"; // NOTE: has to be 16 bytes
         isLogged = false;
 
         myLoginPanel = new LoginPanel(this);
 
         this.setContentPane(makePanel());
-        this.setJMenuBar(makeMenu());
+        // this.setJMenuBar(makeMenu());
     }
 
     /**
@@ -150,6 +150,7 @@ public class LoginWindow extends JFrame implements ActionListener
             }
         }
 
+        this.setVisible(false);
         return loadFromFile(myLoginPanel.getLogin());
     }
 
