@@ -17,7 +17,7 @@
  * @version 0.1
  */
 // TODO: Write JavaDoc
-public class Property {
+public abstract class Property {
     /**
      * The neighbourhood of the property.
      *
