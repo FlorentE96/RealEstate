@@ -2,7 +2,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.FileReader;
+
+import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
@@ -12,6 +13,7 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
+import javax.crypto.spec.IvParameterSpec;
 
 import java.nio.charset.StandardCharsets;
 
@@ -22,7 +24,7 @@ import java.nio.charset.StandardCharsets;
  */
 public class EncryptionUtils {
     private static final String ALGORITHM = "AES";
-    private static final String TRANSFORMATION = "AES";
+    private static final String TRANSFORMATION = "AES/CBC/PKCS5Padding";
 
     public static String encrypt(String key, String inputString)
             throws EncryptionException {
@@ -103,6 +105,13 @@ public class EncryptionUtils {
             return new String(outputBytes, StandardCharsets.UTF_8);
     }
 
+//    public static char[] decrypt(String key, String inputString)
+//            throws EncryptionException {
+//        byte[] inputBytes = inputString.getBytes(StandardCharsets.UTF_8);
+//        byte[] outputBytes = doCrypto(Cipher.DECRYPT_MODE, key, inputBytes);
+//        return new String(outputBytes, StandardCharsets.UTF_8).toCharArray();
+//    }
+
 
 //    public static void decryptFile2Stream(String key, File inputFile, byte[] outputBytes)
 //            throws EncryptionException {
@@ -137,13 +146,15 @@ public class EncryptionUtils {
         try {
             Key secretKey = new SecretKeySpec(key.getBytes(), ALGORITHM);
             Cipher cipher = Cipher.getInstance(TRANSFORMATION);
-            cipher.init(cipherMode, secretKey);
+            byte[] iv = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            IvParameterSpec ivspec = new IvParameterSpec(iv);
+            cipher.init(cipherMode, secretKey, ivspec);
 
             return cipher.doFinal(inputBytes);
 
         } catch (NoSuchPaddingException | NoSuchAlgorithmException
                 | InvalidKeyException | BadPaddingException
-                | IllegalBlockSizeException ex) {
+                | IllegalBlockSizeException |InvalidAlgorithmParameterException ex) {
             throw new EncryptionException("Error encrypting/decrypting word", ex);
         }
     }
