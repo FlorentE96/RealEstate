@@ -124,14 +124,13 @@ public class LoginWindow extends JFrame implements ActionListener
             {
                 JOptionPane.showMessageDialog(null, "Login or password incorrect.");
             }
-            else
-                JOptionPane.showMessageDialog(null, "You're in, "+login+".");
         }
         else if(command.equals("register"))
         {
             // TODO : check if already existing
             registerNewUser(myLoginPanel.getLogin(), myLoginPanel.getPassword());
             JOptionPane.showMessageDialog(null, "Registration successful");
+            myLoginPanel.clearGUIValues();
         }
         else if(command.equals("quit"))
             System.exit(0);
