@@ -8,19 +8,21 @@ public class MainWindow
         extends JFrame
         implements ActionListener
 {
-    private PerformancePanel myPerformancePanel;
+    private AgentPanel myAgentPanel;
     private ClientsPanel myClientsPanel;
     private SalePanel mySalePanel;
+    private Agent user;
 
-    public MainWindow()
+    public MainWindow(Agent _user)
     {
         super("Real Estate Manager");
+        user = _user;
 
         this.setContentPane(this.makePanel());
         this.setJMenuBar(makeMenu());
 
         this.pack();
-        this.setMaximumSize(this.getSize());
+//        this.setMaximumSize(this.getSize());
         this.setMinimumSize(this.getSize());
 
         this.setVisible(true);
@@ -29,14 +31,15 @@ public class MainWindow
     private JPanel makePanel()
     {
         JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
-        myPerformancePanel = new PerformancePanel();
+        myAgentPanel = new AgentPanel(user,false);
         myClientsPanel = new ClientsPanel();
         mySalePanel = new SalePanel();
 
         JTabbedPane myTabbedPane = new JTabbedPane();
 
-        myTabbedPane.addTab("Performance", myPerformancePanel);
+        myTabbedPane.addTab("Performance", myAgentPanel);
         myTabbedPane.addTab("Clients", myClientsPanel);
         myTabbedPane.addTab("Sale", mySalePanel);
 

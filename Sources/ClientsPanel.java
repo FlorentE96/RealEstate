@@ -27,7 +27,7 @@ public class ClientsPanel
         //Dados para a tabela
         clientList = new ArrayList<Client>();
 
-        clientTable =new JTable(getTableModel());
+        clientTable = new JTable(getTableModel());
         scrollPane = new JScrollPane(clientTable);
         clientTable.setFillsViewportHeight(true);
 
@@ -70,16 +70,16 @@ public class ClientsPanel
         clientTable.setModel(getTableModel());
     }
 
-    public void setArrayData(ArrayList<Client> pecaList)
+    public void setArrayData(ArrayList<Client> newClientList)
     {
-        if(!pecaList.isEmpty()) {
+        if(!newClientList.isEmpty()) {
             clientList.clear();
-            clientList.addAll(pecaList);
+            clientList.addAll(newClientList);
             clientTable.setModel(getTableModel());
         }
         else
         {
-            JOptionPane.showMessageDialog(null, "the list is empty...");
+            JOptionPane.showMessageDialog(null, "The list is empty...");
         }
     }
 

@@ -42,6 +42,12 @@ public class Agent extends Person {
 
     }
 
+    public int getSalaryLevel()
+    {
+        // TODO : salary to level conversion
+        return 0;
+    }
+
     //updateSalary aumenta o salario do funcionario em 5% por padrao ou em aalguma PORCENTAGEM definicda por parametro
     public void updateSalary(double up)
     {

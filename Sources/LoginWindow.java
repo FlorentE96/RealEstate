@@ -53,9 +53,9 @@ public class LoginWindow extends JFrame implements ActionListener
         isLogged = false;
 
         myLoginPanel = new LoginPanel(this);
-
+        this.setResizable(false);
         this.setContentPane(makePanel());
-        // this.setJMenuBar(makeMenu());
+//        this.setJMenuBar(makeMenu());
     }
 
     /**
@@ -128,6 +128,7 @@ public class LoginWindow extends JFrame implements ActionListener
         else if(command.equals("register"))
         {
             // TODO : check if already existing
+            // TODO : register informations (ID name etc.)
             registerNewUser(myLoginPanel.getLogin(), myLoginPanel.getPassword());
             JOptionPane.showMessageDialog(null, "Registration successful");
             myLoginPanel.clearGUIValues();
