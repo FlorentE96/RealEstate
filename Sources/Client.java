@@ -9,8 +9,6 @@ import java.util.*;
  * </ul></p>
  *
  * @see     Person
- * @see     Owner
- * @see     Renter
  *
  * @author  Florent
  * @author  Miron
