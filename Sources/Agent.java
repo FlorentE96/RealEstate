@@ -1,8 +1,8 @@
 import java.util.*;
 
 // TODO: write JavaDoc
-// TODO: check implementation
 public class Agent extends Person {
+    final public double INITIAL_SALARY = 1500.0;
     private double salary;
     private double salesBalance;
     private List<Client> clientList;
@@ -18,7 +18,7 @@ public class Agent extends Person {
     public Agent()
     {
         super("",0);
-        this.salary = 0.0;
+        this.salary = this.INITIAL_SALARY;
         this.salesBalance = 0.0;
         clientList = new ArrayList<Client>();
     }
