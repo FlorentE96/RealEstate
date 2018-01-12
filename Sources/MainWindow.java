@@ -34,7 +34,7 @@ public class MainWindow
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
         myAgentPanel = new AgentPanel(user,false);
-        myClientsPanel = new ClientsPanel();
+        myClientsPanel = new ClientsPanel(user);
         mySalePanel = new SalePanel();
 
         JTabbedPane myTabbedPane = new JTabbedPane();

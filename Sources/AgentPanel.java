@@ -8,9 +8,9 @@ import java.awt.event.*;
 public class AgentPanel
         extends JPanel
 {
-    boolean editable;
+    private boolean editable;
     
-    JTextField nameField, idField, salaryField, balanceField, salaryLevelField;
+    private JTextField nameField, idField, salaryField, balanceField, salaryLevelField;
 
     public AgentPanel(Agent user, boolean isRegistering)
     {
@@ -26,10 +26,10 @@ public class AgentPanel
         salaryLevelField = new JTextField(10);
 
         nameField.setEditable(editable);
-        idField.setEditable(editable);
+        idField.setEditable(false);
         salaryField.setEditable(editable);
         balanceField.setEditable(editable);
-        salaryLevelField.setEditable(editable);
+        salaryLevelField.setEditable(false);
 
         nameField.setText(user.getName());
         idField.setText(Integer.toString(user.getID()));
@@ -77,11 +77,8 @@ public class AgentPanel
         layoutConstraints.gridx = 0;
         layoutConstraints.gridy = 4;
         infoPanel.add(salaryLevelLabel, layoutConstraints);
-        layoutConstraints.gridx = 1;
-        layoutConstraints.gridy = 4;
 
         layoutConstraints.fill = GridBagConstraints.HORIZONTAL;
-        infoPanel.add(salaryLevelField, layoutConstraints);
         layoutConstraints.gridx = 1;
         layoutConstraints.gridy = 0;
         infoPanel.add(idField, layoutConstraints);
@@ -94,7 +91,20 @@ public class AgentPanel
         layoutConstraints.gridx = 1;
         layoutConstraints.gridy = 3;
         infoPanel.add(balanceField, layoutConstraints);
+        layoutConstraints.gridx = 1;
+        layoutConstraints.gridy = 4;
+        infoPanel.add(salaryLevelField, layoutConstraints);
 
         this.add(infoPanel);
+    }
+
+    public Agent getAgetFromForm()
+    {
+        String agentName = nameField.getText();
+        int ID = Integer.parseInt(idField.getText());
+        double salary = Double.parseDouble(salaryField.getText());
+        double salesBalance = Double.parseDouble(balanceField.getText());
+
+        return new Agent(agentName, ID, salary, salesBalance);
     }
 }

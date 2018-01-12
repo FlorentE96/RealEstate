@@ -129,8 +129,18 @@ public class LoginWindow extends JFrame implements ActionListener
         {
             // TODO : check if already existing
             // TODO : register informations (ID name etc.)
-            registerNewUser(myLoginPanel.getLogin(), myLoginPanel.getPassword());
-            JOptionPane.showMessageDialog(null, "Registration successful");
+            RegisterAgentDialog myDialog = new RegisterAgentDialog(this);
+            Agent agentReturned = myDialog.getAgentReturned();
+            if(agentReturned != null)
+            {
+                registerNewUser(myLoginPanel.getLogin(), myLoginPanel.getPassword());
+                agentReturned.saveAgentInfo();
+                JOptionPane.showMessageDialog(null, "Registration successful");
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Registration cancelled");
+            }
             myLoginPanel.clearGUIValues();
         }
         else if(command.equals("quit"))
