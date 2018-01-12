@@ -1,18 +1,28 @@
+import java.util.*;
+
 // TODO: write JavaDoc
 // TODO: check implementation
 public class Agent extends Person {
     private double salary;
     private double salesBalance;
+    private List<Client> clientList;
 
     public Agent(String _name, int _ID, double _salary)
     {
         super(_name,_ID);
         this.salary = _salary;
         this.salesBalance = 0.0;
+        clientList = new ArrayList<Client>();
     }
 
-    // com vendas anteriores a criacao do funcionario
-    // FIXME: JavaDoc syntax
+    public Agent()
+    {
+        super("",0);
+        this.salary = 0.0;
+        this.salesBalance = 0.0;
+        clientList = new ArrayList<Client>();
+    }
+
     public Agent(String _name, int _ID, double _salary, double _salesBalance)
     {
         super(_name,_ID);
@@ -20,7 +30,11 @@ public class Agent extends Person {
         this.salesBalance = _salesBalance;
     }
 
-    // GETTERS E SETTERS
+    public List<Client> getClientList()
+    {
+        return clientList;
+    }
+
     public double getSalary()
     {
         return salary;
@@ -48,24 +62,38 @@ public class Agent extends Person {
         return 0;
     }
 
-    //updateSalary aumenta o salario do funcionario em 5% por padrao ou em aalguma PORCENTAGEM definicda por parametro
-    public void updateSalary(double up)
+    public void saveAgentInfo()
     {
-        this.salary = this.salary * (1 + up*0.01);
+        // TODO : save agent's info to csv file
     }
 
     public void updateSalary()
     {
-        this.salary = this.salary * 1.05;
+        if(salesBalance/5 > salary)
+        {
+            salary *= 1.10;
+        }
     }
 
-    //makeSale efetua a venda de um client para o outro
-    public void makeSale(Client clientFrom, Client clientTo, Property IdPro)
+    public void makeSale(Client clientFrom, Client clientTo, Property property, double price)
     {
-        //receber dinheiro clientTo
-        //dar dinheiro para clientFrom
-        //apagar propriedade do sistema
-        //this.salesBalance = this.salesBalance + valorPropriedade;
+        clientFrom.removeProperty(property);
+        clientTo.addProperty(property);
+        this.salesBalance += price;
     }
 
+    public void addClient(Client client)
+    {
+        clientList.add(client);
+    }
+
+    public void removeClient(Client client)
+    {
+        clientList.remove(client);
+    }
+
+    public void removeClient(int index)
+    {
+        clientList.remove(index);
+    }
 }

@@ -1,3 +1,5 @@
+import java.util.*;
+
 /**
  * <b>Client is a subclass of Person.</b>
  * <p>Each client has :
@@ -24,27 +26,22 @@ public class Client extends Person {
      * @see Client#isTrustable(Property)
      */
     private double income;
+
     /**
-     * A list of preferences of the client. You can add or remove for this list
+     * A list of preferences of the client. You can add or remove from this list
      *
      * @see Client#addPreference(Preference)
-     * @see Client#removePreference(int)
+     * @see Client#removePreference(Preference)
      */
-    private Preference preferences[]; // TODO: change this to a collection (version 0.2)
+    private List<Preference> preferenceList;
 
     /**
-     * The maximum number of preferences
+     * A list of properties of the client. You can add or remove from this list
      *
-     * @deprecated 0.2
+     * @see Client#addProperty(Property)
+     * @see Client#removeProperty(Property)
      */
-    public static final int maxPreferences = 10; // TODO: remove this
-
-    /**
-     * The current number of preferences for this client.
-     *
-     * @deprecated 0.2
-     */
-    private int numPreferences;
+    private List<Property> propertyList;
 
     /**
      * Constructor for class Client
@@ -57,7 +54,8 @@ public class Client extends Person {
     public Client(String _name, int _ID) {
         super(_name, _ID);
         income = 0.0; // TODO: fix default salary
-        preferences = new Preference[maxPreferences]; // TODO: turn to a collection
+        preferenceList = new ArrayList<Preference>();
+        propertyList = new ArrayList<Property>();
     }
 
     /**
@@ -72,7 +70,7 @@ public class Client extends Person {
     public Client(String _name, int _ID, double _income) {
         super(_name, _ID);
         income = _income;
-        preferences = new Preference[maxPreferences]; // TODO: collection
+        preferenceList = new ArrayList<Preference>(); // TODO: collection
     }
 
     /**
@@ -114,23 +112,35 @@ public class Client extends Person {
     /**
      * Add a new preference for the client.
      *
-     * @param _preference the preference to be added
+     * @param preference the preference to be added
      *
-     * @deprecated 0.2
      */
-    public void addPreference(Preference _preference) {
-        if(numPreferences<maxPreferences)
-            preferences[numPreferences++] = _preference;
+    public void addPreference(Preference preference) {
+        preferenceList.add(preference);
     }
 
     /**
      * Remove an existing preference of the client.
      *
-     * @param index     the index of the preference to be removed.
+     * @param preference the Preference object to remove
      *
-     * @deprecated 0.2
      */
-    public void removePreference(int index) {
-        preferences[index] = null;
+    public void removePreference(Preference preference) {
+        preferenceList.remove(preference);
+    }
+
+    public void addProperty(Property property)
+    {
+        propertyList.add(property);
+    }
+
+    public void removeProperty(Property property)
+    {
+        propertyList.remove(property);
+    }
+
+    public void removeProperty(int index)
+    {
+        propertyList.remove(index);
     }
 }

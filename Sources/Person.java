@@ -90,5 +90,10 @@ public abstract class Person {
         ID = _ID;
     }
 
+    public void generateID()
+    {
+        ID = this.hashCode();
+    }
+
 //    public abstract String getAllInfo();
 }
