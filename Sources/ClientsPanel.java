@@ -40,10 +40,13 @@ public class ClientsPanel
         rightClickMenu = new JPopupMenu();
         JMenuItem deleteClient = new JMenuItem("Delete");
         JMenuItem addClient = new JMenuItem("Add new client");
+        JMenuItem addProperty = new JMenuItem("Register new property");
         deleteClient.addActionListener(this);
         addClient.addActionListener(this);
+        addProperty.addActionListener(this);
         deleteClient.setActionCommand("delete client");
         addClient.setActionCommand("add client");
+        addProperty.setActionCommand("add property");
         rightClickMenu.add(deleteClient);
         rightClickMenu.add(addClient);
 //        clientTable.setComponentPopupMenu(rightClickMenu);
@@ -133,6 +136,10 @@ public class ClientsPanel
         else if(command.equals("add client"))
         {
             // TODO : register client panel
+        }
+        else if(command.equals("add property"))
+        {
+            // TODO : register property panel
         }
     }
 

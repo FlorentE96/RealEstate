@@ -2,7 +2,7 @@
  * <b>House is a subclass of Property</b>
  * <p>Each property has at least:
  * <ul>
- *     <li>A bollean hasGarden </li>
+ *     <li>A boolean hasGarden </li>
  * </ul></p>
  *
  * @see
@@ -18,11 +18,16 @@ public class House extends Property {
      *
      * @see
      */
-    private bollean hasGarden;
+    private boolean hasGarden;
 
-    public House(String _neighbourhood, String _nRooms, double _price, HouseStatus _status, Owner _owner, Renter _renter, boolean _hadGarage, boolean _hasGarden){
-            super(_neighbourhood, _nRooms, _price, _status, _owner, _renter, _hadGarage)
+    public House(String _neighbourhood, int _numRooms, double _price, PropertyStatus _status, boolean _hadGarage, boolean _hasGarden){
+            super(_neighbourhood, _numRooms, _price, _status, _hadGarage);
             hasGarden = _hasGarden;
         }
 
+    public House(String _neighbourhood)
+    {
+        super(_neighbourhood);
+        hasGarden = false;
+    }
 }
