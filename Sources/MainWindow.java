@@ -35,7 +35,7 @@ public class MainWindow
 
         myAgentPanel = new AgentPanel(user,false);
         myClientsPanel = new ClientsPanel(user);
-        mySalePanel = new SalePanel();
+        mySalePanel = new SalePanel(user);
 
         JTabbedPane myTabbedPane = new JTabbedPane();
 

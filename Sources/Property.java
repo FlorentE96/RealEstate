@@ -19,74 +19,107 @@
 // TODO: Write JavaDoc
 public abstract class Property {
 
-    public enum HouseStatus {rented, owned};
+    public enum PropertyStatus {rented, owned};
     /**
      * The neighbourhood of the property.
      *
-     * @see ???????
+     *
      */
-    private String neighbouhood;
+    private String neighbourhood;
+
     /**
      * The number of the rooms.
      *
      * @see
      */
-    private String nRooms;
+    private int numRoom;
+
     /**
      * The price of the property.
      *
      * @see
      */
     private double price;
+
     /**
      * The status of the Property.
      *
      * @see
      */
-    private HouseStatus status;
+    private PropertyStatus status;
+
     /**
-     * The owner of the property.
-     *
-     * @see
-     */
-    private Owner owner;
-    /**
-     * The agent of the property.
-     *
-     * @see
-     */
-    private Agent agent;
-    /**
-     * The renter of the property.
-     *
-     * @see
-     */
-    private Renter renter;    /**
      * If the property had garage is TRUE, else is FALSE.
      *
      * @see
      */
-    private boolean hadGarage;
+    private boolean hasGarage;
+
     /**
      * Constructor for the class.
      */
-    public Property(String _neighbourhood, String _nRooms, double _price, HouseStatus _status, Owner _owner, Renter _renter, boolean _hadGarage){
+    public Property(String _neighbourhood, int _numRoom, double _price, PropertyStatus _status, boolean _hasGarage){
 
-        neighbouhood = _neighbourhood;
-        nRooms = _nRooms;
+        neighbourhood = _neighbourhood;
+        numRoom = _numRoom;
         price = _price;
         status = _status;
-        owner = _owner;
-        agent = _agent;
-        renter = _renter;
-        hadGarage = _hadGarage;
+        hasGarage = _hasGarage;
 
     }
 
-    /**
-     * Update the price of the property.
-     */
-    public void updatePrice(double update){
-        price = update;
+    public Property(String _neighbourhood){
+
+        neighbourhood = _neighbourhood;
+        numRoom = 0;
+        price = 0.0;
+        status = PropertyStatus.owned;
+        hasGarage = false;
+
+    }
+
+    public String getNeighbourhood() {
+        return neighbourhood;
+    }
+
+    public void setNeighbourhood(String neighbourhood) {
+        this.neighbourhood = neighbourhood;
+    }
+
+    public int getNumRoom() {
+        return numRoom;
+    }
+
+    public void setNumRoom(int numRoom) {
+        this.numRoom = numRoom;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public PropertyStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(PropertyStatus status) {
+        this.status = status;
+    }
+
+    public boolean isHasGarage() {
+        return hasGarage;
+    }
+
+    public void setHasGarage(boolean hasGarage) {
+        this.hasGarage = hasGarage;
+    }
+
+    public String toString()
+    {
+        return neighbourhood;
     }
 }

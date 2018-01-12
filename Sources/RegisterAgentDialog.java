@@ -40,11 +40,6 @@ public class RegisterAgentDialog extends JDialog implements ActionListener{
         return agentReturned;
     }
 
-    public int foo()
-    {
-        return 512;
-    }
-
     public void actionPerformed(ActionEvent e)
     {
         String command = e.getActionCommand();

@@ -95,5 +95,10 @@ public abstract class Person {
         ID = this.hashCode();
     }
 
+    public String toString()
+    {
+        return Integer.toString(this.ID).concat(" - " + this.name);
+    }
+
 //    public abstract String getAllInfo();
 }
