@@ -1,7 +1,6 @@
-
-
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.event.*;
 import javax.swing.table.*;
 import java.util.*;
 import java.awt.event.*;
@@ -9,28 +8,46 @@ import java.awt.event.*;
 
 public class ClientsPanel
         extends JPanel
-        implements MouseListener
+        implements MouseListener, ActionListener
 {
     // variables d'instance - remplacez l'exemple qui suit par le vôtre
     private JTable clientTable;
     private JScrollPane scrollPane;
-    private ArrayList<Client> clientList;
     private JDialog dialog;
+    private Agent agent;
+    JPopupMenu rightClickMenu;
 
     /**
      * Constructeur d'objets de classe PainelConsulta
      */
-    public ClientsPanel()
+    public ClientsPanel(Agent _agent)
     {
+        agent = _agent;
         String[] columnNames = {"ID","Name","Income","Preferences","Status"};
 
-        //Dados para a tabela
-        clientList = new ArrayList<Client>();
+        Client myClient = new Client("Florent", 0, 2500.0);
+        myClient.generateID();
+        agent.addClient(myClient);
+        Client myClient2 = new Client("Florent", 0, 2500.0);
+        myClient2.generateID();
+        agent.addClient(myClient2);
+        Client myClient3 = new Client("Florent", 0, 2500.0);
+        myClient3.generateID();
+        agent.addClient(myClient3);
 
         clientTable = new JTable(getTableModel());
         scrollPane = new JScrollPane(clientTable);
         clientTable.setFillsViewportHeight(true);
-
+        rightClickMenu = new JPopupMenu();
+        JMenuItem deleteClient = new JMenuItem("Delete");
+        JMenuItem addClient = new JMenuItem("Add new client");
+        deleteClient.addActionListener(this);
+        addClient.addActionListener(this);
+        deleteClient.setActionCommand("delete client");
+        addClient.setActionCommand("add client");
+        rightClickMenu.add(deleteClient);
+        rightClickMenu.add(addClient);
+//        clientTable.setComponentPopupMenu(rightClickMenu);
         clientTable.addMouseListener(this);
 
         this.add(scrollPane);
@@ -43,7 +60,7 @@ public class ClientsPanel
             public boolean isCellEditable(int row, int column){
                 return false; // This causes all cells to be not editable
             }};
-        for (Client client : clientList) {
+        for (Client client : agent.getClientList()) {
             tableModel.addRow(new Object[] {
                     client.getID(),
                     client.getName(),
@@ -55,75 +72,66 @@ public class ClientsPanel
         return tableModel;
     }
 
-    public void registerClient(Client _client)
+    public void updateTable()
     {
-        if(_client.getID() <= 0)
-        {
-            _client.setID(clientList.size()+1);
-            clientList.add(_client);
-        }
-        else
-        {
-            clientList.set(_client.getID()-1, _client);
-            dialog.dispose();
-        }
         clientTable.setModel(getTableModel());
     }
 
-    public void setArrayData(ArrayList<Client> newClientList)
-    {
-        if(!newClientList.isEmpty()) {
-            clientList.clear();
-            clientList.addAll(newClientList);
-            clientTable.setModel(getTableModel());
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(null, "The list is empty...");
-        }
-    }
-
-    public void clearArrayData()
-    {
-        clientList.clear();
-        clientTable.setModel(getTableModel());
-    }
-
-    public String getCSVData() {
-        String csvData = "";
-        for (Client peca : clientList)
-        {
-            csvData += peca.getID() + "," +
-                    peca.getName() + "," +
-                    peca.getIncome() + "," +
-                    "" + "," + // preferences
-                    "" + "," + // status
-                    "\n";
-        }
-        return csvData;
-    }
+//    public String getCSVData() {
+//        String csvData = "";
+//        for (Client peca : clientList)
+//        {
+//            csvData += peca.getID() + "," +
+//                    peca.getName() + "," +
+//                    peca.getIncome() + "," +
+//                    "" + "," + // preferences
+//                    "" + "," + // status
+//                    "\n";
+//        }
+//        return csvData;
+//    }
 
     public void mousePressed(MouseEvent e)
     {
-        JTable table = (JTable)e.getSource();
-        Point point = e.getPoint();
-        int linha = table.rowAtPoint(point);
 
-        if(e.getClickCount() == 2 && linha >= 0)
+    }
+    public void mouseReleased(MouseEvent e) {
+        Point point = e.getPoint();
+        int rowAtPoint = clientTable.rowAtPoint(point);
+        if (rowAtPoint >= 0 && rowAtPoint < clientTable.getRowCount())
         {
-            // TODO : client registration
-//            dialog = new JDialog();
-//            RegisterClientPanel registerClientPanel =
-//                    new RegisterClientPanel(clientList.get(linha));
-//            painelEdicao.addCadastroListener(this);
-//            dialog.add(registerClientPanel);
-//            dialog.pack();
-//            dialog.setVisible(true);
+            clientTable.setRowSelectionInterval(rowAtPoint, rowAtPoint);
+            if (e.isPopupTrigger())
+            {
+                rightClickMenu.show(e.getComponent(), e.getX(), e.getY());
+            }
+
+            if(e.getClickCount() == 2)
+            {
+                // TODO : edit client
+            }
+        }
+        else
+        {
+            clientTable.clearSelection();
         }
     }
-    public void mouseReleased(MouseEvent e) {}
     public void mouseEntered(MouseEvent e) {}
     public void mouseExited(MouseEvent e) {}
     public void mouseClicked(MouseEvent e) {}
+
+    public void actionPerformed(ActionEvent e)
+    {
+        String command = e.getActionCommand();
+        if(command.equals("delete client"))
+        {
+            int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this client?","Confirm", JOptionPane.YES_NO_OPTION);
+            if(dialogResult == JOptionPane.YES_OPTION){
+                agent.removeClient(clientTable.getSelectedRow());
+                this.updateTable();
+            }
+        }
+    }
+
 
 }
