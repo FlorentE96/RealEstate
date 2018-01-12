@@ -28,14 +28,6 @@ public class Client extends Person {
     private double income;
 
     /**
-     * A list of preferences of the client. You can add or remove from this list
-     *
-     * @see Client#addPreference(Preference)
-     * @see Client#removePreference(Preference)
-     */
-    private List<Preference> preferenceList;
-
-    /**
      * A list of properties of the client. You can add or remove from this list
      *
      * @see Client#addProperty(Property)
@@ -54,7 +46,6 @@ public class Client extends Person {
     public Client(String _name, int _ID) {
         super(_name, _ID);
         income = 0.0; // TODO: fix default salary
-        preferenceList = new ArrayList<Preference>();
         propertyList = new ArrayList<Property>();
     }
 
@@ -70,7 +61,15 @@ public class Client extends Person {
     public Client(String _name, int _ID, double _income) {
         super(_name, _ID);
         income = _income;
-        preferenceList = new ArrayList<Preference>(); // TODO: collection
+        propertyList = new ArrayList<Property>();
+    }
+
+    public Client(String _name)
+    {
+        super(_name, 0);
+        income = 0.0;
+        this.generateID();
+        propertyList = new ArrayList<Property>();
     }
 
     /**
@@ -109,26 +108,6 @@ public class Client extends Person {
         return true;
     }
 
-    /**
-     * Add a new preference for the client.
-     *
-     * @param preference the preference to be added
-     *
-     */
-    public void addPreference(Preference preference) {
-        preferenceList.add(preference);
-    }
-
-    /**
-     * Remove an existing preference of the client.
-     *
-     * @param preference the Preference object to remove
-     *
-     */
-    public void removePreference(Preference preference) {
-        preferenceList.remove(preference);
-    }
-
     public void addProperty(Property property)
     {
         propertyList.add(property);
@@ -142,5 +121,15 @@ public class Client extends Person {
     public void removeProperty(int index)
     {
         propertyList.remove(index);
+    }
+
+    public List<Property> getPropertyList()
+    {
+        return propertyList;
+    }
+
+    public int getNumPropertiesOwned()
+    {
+        return this.propertyList.size();
     }
 }

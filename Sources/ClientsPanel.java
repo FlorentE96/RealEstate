@@ -23,7 +23,6 @@ public class ClientsPanel
     public ClientsPanel(Agent _agent)
     {
         agent = _agent;
-        String[] columnNames = {"ID","Name","Income","Preferences","Status"};
 
         Client myClient = new Client("Florent", 0, 2500.0);
         myClient.generateID();
@@ -55,7 +54,7 @@ public class ClientsPanel
 
     //getTableModel
     private DefaultTableModel getTableModel(){
-        String[] columnNames = {"ID","Name","Income","Preferences","Status"};
+        String[] columnNames = {"ID","Name","Income","Status"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0){
             public boolean isCellEditable(int row, int column){
                 return false; // This causes all cells to be not editable
@@ -65,8 +64,8 @@ public class ClientsPanel
                     client.getID(),
                     client.getName(),
                     client.getIncome(),
-                    "", // TODO : client.getPreferences(),
-                    "", //TODO : client.getStatus()
+                    "", // TODO : client.getStatus(),
+                    client.getNumPropertiesOwned(), //TODO : client.getStatus()
                     });
         }
         return tableModel;
@@ -130,6 +129,10 @@ public class ClientsPanel
                 agent.removeClient(clientTable.getSelectedRow());
                 this.updateTable();
             }
+        }
+        else if(command.equals("add client"))
+        {
+            // TODO : register client panel
         }
     }
 
