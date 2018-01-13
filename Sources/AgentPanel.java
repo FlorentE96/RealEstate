@@ -1,14 +1,9 @@
-
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.table.*;
-import java.util.*;
-import java.awt.event.*;
 
 public class AgentPanel
         extends JPanel
 {
-    private boolean editable;
     private Agent agent;
     
     private JTextField nameField, idField, salaryField, balanceField, salaryLevelField;
@@ -17,15 +12,11 @@ public class AgentPanel
     public AgentPanel(Agent _agent, boolean isRegistering)
     {
         agent = _agent;
-        editable = isRegistering;
-        
-        JPanel infoPanel;
-        infoPanel = new JPanel();
 
-        nameField.setEditable(editable);
+        nameField.setEditable(isRegistering);
         idField.setEditable(false);
-        salaryField.setEditable(editable);
-        balanceField.setEditable(editable);
+        salaryField.setEditable(isRegistering);
+        balanceField.setEditable(isRegistering);
         salaryLevelField.setEditable(false);
 
         this.updateValues();
