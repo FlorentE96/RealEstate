@@ -1,11 +1,9 @@
+package app.ui;
+
+import app.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.JFormattedTextField.AbstractFormatter;
-import javax.swing.JFormattedTextField.AbstractFormatterFactory;
-import javax.swing.text.InternationalFormatter;
-import java.math.*;
-import java.text.*;
 
 public class RegisterPropertyDialog
         extends JDialog
@@ -36,9 +34,9 @@ public class RegisterPropertyDialog
     private Property property;
 
     public RegisterPropertyDialog(JFrame owner) {
-        super(owner, "Register Property");
+        super(owner, "Register app.Property");
 
-        typeComboBox.addItem("House");
+        typeComboBox.addItem("app.House");
         typeComboBox.addItem("Appartment");
         typeComboBox.setEditable(false);
         typeComboBox.addItemListener(this);
@@ -81,7 +79,7 @@ public class RegisterPropertyDialog
                 double size = Double.parseDouble(sizeField.getText());
                 int numRooms = (int)numRoomsSpinner.getValue();
                 boolean hasGarage = garageCheckBox.isSelected();
-                if(typeComboBox.getSelectedItem().equals("House"))
+                if(typeComboBox.getSelectedItem().equals("app.House"))
                 {
                     boolean hasGarden = gardenCheckBox.isSelected();
                     boolean hasPool   = poolCheckBox.isSelected();

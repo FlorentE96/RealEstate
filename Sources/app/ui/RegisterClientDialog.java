@@ -1,3 +1,6 @@
+package app.ui;
+
+import app.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,7 +19,7 @@ public class RegisterClientDialog
 
     public RegisterClientDialog(JFrame owner)
     {
-        super(owner, "Register Client");
+        super(owner, "Register app.Client");
 
         registerButton.addActionListener(this);
         registerButton.setActionCommand("register");
@@ -32,7 +35,7 @@ public class RegisterClientDialog
 
     public RegisterClientDialog(JFrame owner, Client _client)
     {
-        super(owner, "Register Client");
+        super(owner, "Register app.Client");
 
         client = _client;
 

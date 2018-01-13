@@ -1,7 +1,8 @@
+package app.ui;
+
+import app.*;
 import javax.swing.*;
 import java.awt.event.*;
-import java.io.*;
-import java.util.Arrays;
 
 public class RegisterAgentDialog
         extends JDialog

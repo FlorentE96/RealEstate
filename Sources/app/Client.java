@@ -1,7 +1,9 @@
+package app;
+
 import java.util.*;
 
 /**
- * <b>Client is a subclass of Person.</b>
+ * <b>app.Client is a subclass of app.Person.</b>
  * <p>Each client has :
  * <ul>
  *     <li>An income, used to calculate if he reliable or not</li>
@@ -34,10 +36,10 @@ public class Client extends Person {
     private List<Property> propertyList;
 
     /**
-     * Constructor for class Client
+     * Constructor for class app.Client
      *
-     * @param _name The name of the Client
-     * @param _ID   The ID of the Client
+     * @param _name The name of the app.Client
+     * @param _ID   The ID of the app.Client
      *
      * @see         Person#Person(String, int)
      */
@@ -48,11 +50,11 @@ public class Client extends Person {
     }
 
     /**
-     * Overloaded constructor for class Client
+     * Overloaded constructor for class app.Client
      *
-     * @param _name     The name of the Client
-     * @param _ID       The ID of the Client
-     * @param _income   The monthly income of the Client
+     * @param _name     The name of the app.Client
+     * @param _ID       The ID of the app.Client
+     * @param _income   The monthly income of the app.Client
      *
      * @see             Person#Person(String, int)
      */

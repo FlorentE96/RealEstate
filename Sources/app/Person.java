@@ -1,5 +1,7 @@
+package app;
+
 /**
- * <b>Person is the base class for all persons</b>
+ * <b>app.Person is the base class for all persons</b>
  * <p>Each person has at least:
  * <ul>
  *     <li>A name</li>
@@ -31,12 +33,12 @@ public abstract class Person {
     private int ID;
 
     /**
-     * Constructor Person.
+     * Constructor app.Person.
      *
      * <p>The name and ID are specified at construction</p>
      *
-     * @param _name     the name of the Person
-     * @param _ID       the ID of the Person
+     * @param _name     the name of the app.Person
+     * @param _ID       the ID of the app.Person
      *
      * @see             Person#name
      * @see             Person#ID
@@ -49,7 +51,7 @@ public abstract class Person {
     /**
      * Getter for name.
      *
-     * @return  the name of the Person
+     * @return  the name of the app.Person
      *
      * @see     Person#name
      */
@@ -60,7 +62,7 @@ public abstract class Person {
     /**
      * Getter for ID.
      *
-     * @return  The ID of the Person
+     * @return  The ID of the app.Person
      *
      * @see     Person#ID
      */

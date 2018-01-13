@@ -1,5 +1,7 @@
+package app;
+
 /**
- * <b>House is a subclass of Property</b>
+ * <b>app.House is a subclass of app.Property</b>
  * <p>Each property has at least:
  * <ul>
  *     <li>A boolean hasGarden </li>

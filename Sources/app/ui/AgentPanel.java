@@ -1,5 +1,8 @@
+package app.ui;
+
 import java.awt.*;
 import javax.swing.*;
+import app.*;
 
 public class AgentPanel
         extends JPanel

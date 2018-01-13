@@ -1,3 +1,6 @@
+package app.ui;
+
+import app.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.io.*;
@@ -13,8 +16,8 @@ import java.util.Arrays;
  *
  * <p>Using the "File" menu, you can register a new user, or quit the program</p>
  * <p>To launch the login dialog, call the person#showLoginDialog() method.
- * This method returns an @Agent object if the log was successful.</p>
- * <p>The @Agent object returned contains information loaded from an encrypted CSV file (@loadFromeFile(int _login).</p>
+ * This method returns an @app.Agent object if the log was successful.</p>
+ * <p>The @app.Agent object returned contains information loaded from an encrypted CSV file (@loadFromeFile(int _login).</p>
  *
  * @see     LoginPanel
  * @see     Agent

@@ -1,3 +1,5 @@
+package app.utils.crypt;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -106,7 +108,7 @@ public class EncryptionUtils {
     }
 
 //    public static char[] decrypt(String key, String inputString)
-//            throws EncryptionException {
+//            throws app.utils.crypt.EncryptionException {
 //        byte[] inputBytes = inputString.getBytes(StandardCharsets.UTF_8);
 //        byte[] outputBytes = doCrypto(Cipher.DECRYPT_MODE, key, inputBytes);
 //        return new String(outputBytes, StandardCharsets.UTF_8).toCharArray();
@@ -114,7 +116,7 @@ public class EncryptionUtils {
 
 
 //    public static void decryptFile2Stream(String key, File inputFile, byte[] outputBytes)
-//            throws EncryptionException {
+//            throws app.utils.crypt.EncryptionException {
 //        try {
 //            File file = new File("test.txt");
 //            FileReader fileReader = new FileReader(file);
@@ -138,7 +140,7 @@ public class EncryptionUtils {
 //        }
 //        catch(IOException ex)
 //        {
-//            throw new EncryptionException("Error opening/writing file", ex);
+//            throw new app.utils.crypt.EncryptionException("Error opening/writing file", ex);
 //        }
 //    }
 

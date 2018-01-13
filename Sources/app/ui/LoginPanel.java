@@ -1,10 +1,9 @@
-import java.awt.*;
-import javax.swing.*;
+package app.ui;
+
+import app.*;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-import java.io.*;
-import java.util.*;
 
 public class LoginPanel extends JPanel
 {

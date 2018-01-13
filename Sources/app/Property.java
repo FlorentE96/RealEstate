@@ -1,12 +1,14 @@
+package app;
+
 /**
- * <b>Property is the base class for all properties</b>
+ * <b>app.Property is the base class for all properties</b>
  * <p>Each property has at least:
  * <ul>
  *     <li>A ID </li>
  *     <li>Numbers of rooms</li>
  *     <li>Numbers of bathrooms</li>
  *     <li>Area</li>
- *     <li>Property type</li>
+ *     <li>app.Property type</li>
  * </ul></p>
  *
  * @see     Client

@@ -1,3 +1,5 @@
+package app.utils.crypt;
+
 public class EncryptionException extends Exception {
 
     public EncryptionException() {

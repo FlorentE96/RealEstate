@@ -1,3 +1,6 @@
+package app.ui;
+
+import app.*;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.*;
@@ -27,8 +30,8 @@ public class ClientsPanel
         rightClickMenu = new JPopupMenu();
         rightClickMenuLimited = new JPopupMenu();
 
-        JMenuItem deleteClient = new JMenuItem("Delete Client");
-        JMenuItem editClient = new JMenuItem("Edit Client");
+        JMenuItem deleteClient = new JMenuItem("Delete app.Client");
+        JMenuItem editClient = new JMenuItem("Edit app.Client");
         JMenuItem addClient = new JMenuItem("Add new client");
         JMenuItem addProperty = new JMenuItem("Add property to client");
 
@@ -80,7 +83,7 @@ public class ClientsPanel
 
 //    public String getCSVData() {
 //        String csvData = "";
-//        for (Client peca : clientList)
+//        for (app.Client peca : clientList)
 //        {
 //            csvData += peca.getID() + "," +
 //                    peca.getName() + "," +
