@@ -6,7 +6,7 @@ import javax.swing.event.*;
 import java.awt.event.*;
 
 public class MainWindow
-        extends JFrame
+        extends JDialog
         implements ActionListener, ChangeListener
 {
     private AgentPanel myAgentPanel;
@@ -15,9 +15,9 @@ public class MainWindow
     private JTabbedPane myTabbedPane;
     private Agent user;
 
-    public MainWindow(Agent _user)
+    public MainWindow(JFrame owner, Agent _user)
     {
-        super("Real Estate Manager");
+        super(owner, "Real Estate Manager");
         user = _user;
 
         this.setContentPane(this.makePanel());
@@ -26,7 +26,7 @@ public class MainWindow
         this.pack();
 //        this.setMaximumSize(this.getSize());
         this.setMinimumSize(this.getSize());
-
+        this.setModal(true);
         this.setVisible(true);
     }
 
@@ -76,7 +76,9 @@ public class MainWindow
     {
         String command = e.getActionCommand();
         if(command.equals("quit"))
-            System.exit(0);
+        {
+            this.setVisible(false);
+        }
     }
 
     public void stateChanged(ChangeEvent e) {

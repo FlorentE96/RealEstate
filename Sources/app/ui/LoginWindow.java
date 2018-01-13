@@ -25,7 +25,9 @@ import java.util.Arrays;
  * @author  Florent
  * @version 0.1
  */
-public class LoginWindow extends JFrame implements ActionListener
+public class LoginWindow
+        extends JFrame
+        implements ActionListener
 {
     /**
      * Login panel, containing all the widgets of the login window.
@@ -59,6 +61,8 @@ public class LoginWindow extends JFrame implements ActionListener
         this.setResizable(false);
         this.setContentPane(makePanel());
 //        this.setJMenuBar(makeMenu());
+        this.pack();
+        this.setVisible(true);
     }
 
     /**
@@ -76,7 +80,6 @@ public class LoginWindow extends JFrame implements ActionListener
 
     private JMenuBar makeMenu()
     {
-        //Barras de menus são compostas por menus
         JMenuBar mbr_barra = new JMenuBar();
         JMenu fileMenu;
         JMenuItem newUser, quit;
@@ -115,7 +118,12 @@ public class LoginWindow extends JFrame implements ActionListener
                 if (typedPassword.length != correctPassword.length) {
                     isLogged = false;
                 } else {
-                    isLogged = Arrays.equals(typedPassword, correctPassword);
+                    isLogged = true;
+                    this.setVisible(false);
+                    Agent user = loadFromFile(myLoginPanel.getLogin());
+                    MainWindow myMainWindow = new MainWindow(null, user);
+                    // TODO : save data
+                    System.exit(0);
                 }
             }
             else
