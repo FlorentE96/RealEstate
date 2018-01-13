@@ -12,7 +12,7 @@ public class ClientsPanel
     private JScrollPane scrollPane;
     private JDialog dialog;
     private Agent agent;
-    JPopupMenu rightClickMenu;
+    JPopupMenu rightClickMenu, rightClickMenuLimited;
 
     /**
      * Constructeur d'objets de classe PainelConsulta
@@ -21,23 +21,14 @@ public class ClientsPanel
     {
         agent = _agent;
 
-        Client myClient = new Client("Florent", 0, 2500.0);
-        myClient.generateID();
-        agent.addClient(myClient);
-        Client myClient2 = new Client("Florent", 0, 2500.0);
-        myClient2.generateID();
-        agent.addClient(myClient2);
-        Client myClient3 = new Client("Florent", 0, 2500.0);
-        myClient3.generateID();
-        agent.addClient(myClient3);
-
         clientTable = new JTable(getTableModel());
         scrollPane = new JScrollPane(clientTable);
         clientTable.setFillsViewportHeight(true);
         rightClickMenu = new JPopupMenu();
+        rightClickMenuLimited = new JPopupMenu();
 
-        JMenuItem deleteClient = new JMenuItem("Delete");
-        JMenuItem editClient = new JMenuItem("Edit");
+        JMenuItem deleteClient = new JMenuItem("Delete Client");
+        JMenuItem editClient = new JMenuItem("Edit Client");
         JMenuItem addClient = new JMenuItem("Add new client");
         JMenuItem addProperty = new JMenuItem("Add property to client");
 
@@ -53,8 +44,11 @@ public class ClientsPanel
 
         rightClickMenu.add(deleteClient);
         rightClickMenu.add(editClient);
-        rightClickMenu.add(addClient);
         rightClickMenu.add(addProperty);
+        rightClickMenu.addSeparator();
+        rightClickMenu.add(addClient);
+
+        rightClickMenuLimited.add(addClient);
 
         clientTable.addMouseListener(this);
 
@@ -105,13 +99,18 @@ public class ClientsPanel
     public void mouseReleased(MouseEvent e) {
         Point point = e.getPoint();
         int rowAtPoint = clientTable.rowAtPoint(point);
+        if (e.isPopupTrigger())
+        {
+            if (rowAtPoint >= 0 && rowAtPoint < clientTable.getRowCount()) {
+                rightClickMenu.show(e.getComponent(), e.getX(), e.getY());
+            }
+            else {
+                rightClickMenuLimited.show(e.getComponent(), e.getX(), e.getY());
+            }
+        }
         if (rowAtPoint >= 0 && rowAtPoint < clientTable.getRowCount())
         {
             clientTable.setRowSelectionInterval(rowAtPoint, rowAtPoint);
-            if (e.isPopupTrigger())
-            {
-                rightClickMenu.show(e.getComponent(), e.getX(), e.getY());
-            }
 
             if(e.getClickCount() == 2)
             {
@@ -157,6 +156,4 @@ public class ClientsPanel
         }
         this.updateTable();
     }
-
-
 }
