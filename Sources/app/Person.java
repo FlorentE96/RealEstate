@@ -102,5 +102,10 @@ public abstract class Person {
         return Integer.toString(this.ID).concat(" - " + this.name);
     }
 
-//    public abstract String getAllInfo();
+    public String getCSVData()
+    {
+        String csvData = Integer.toString(this.getID()) + "," +
+                this.getName();
+        return csvData;
+    }
 }

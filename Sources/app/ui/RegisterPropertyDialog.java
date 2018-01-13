@@ -34,9 +34,9 @@ public class RegisterPropertyDialog
     private Property property;
 
     public RegisterPropertyDialog(JFrame owner) {
-        super(owner, "Register app.Property");
+        super(owner, "Register Property");
 
-        typeComboBox.addItem("app.House");
+        typeComboBox.addItem("House");
         typeComboBox.addItem("Appartment");
         typeComboBox.setEditable(false);
         typeComboBox.addItemListener(this);
@@ -79,7 +79,7 @@ public class RegisterPropertyDialog
                 double size = Double.parseDouble(sizeField.getText());
                 int numRooms = (int)numRoomsSpinner.getValue();
                 boolean hasGarage = garageCheckBox.isSelected();
-                if(typeComboBox.getSelectedItem().equals("app.House"))
+                if(typeComboBox.getSelectedItem().equals("House"))
                 {
                     boolean hasGarden = gardenCheckBox.isSelected();
                     boolean hasPool   = poolCheckBox.isSelected();

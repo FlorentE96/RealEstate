@@ -49,7 +49,7 @@ public class RegisterAgentDialog
         String command = e.getActionCommand();
         if(command.equals("validate"))
         {
-            agentReturned = registrationPanel.getAgetFromForm();
+            agentReturned = registrationPanel.getAgentFromForm();
             setVisible(false);
         }
         else if(command.equals("cancel"))

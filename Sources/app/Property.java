@@ -77,8 +77,58 @@ public abstract class Property {
         hasGarage = false;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public int getNumRoom() {
+        return numRoom;
+    }
+
+    public void setNumRoom(int numRoom) {
+        this.numRoom = numRoom;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public double getSize() {
+        return size;
+    }
+
+    public void setSize(double size) {
+        this.size = size;
+    }
+
+    public boolean isHasGarage() {
+        return hasGarage;
+    }
+
+    public void setHasGarage(boolean hasGarage) {
+        this.hasGarage = hasGarage;
+    }
+
     public String toString()
     {
         return address;
+    }
+
+    public String getCSVData()
+    {
+        String csvData = this.getAddress()          + "," +
+                Integer.toString(this.getNumRoom()) + "," +
+                Double.toString(this.getPrice())    + "," +
+                Double.toString(this.getSize())     + "," +
+                Boolean.toString(hasGarage);
+        return csvData;
     }
 }

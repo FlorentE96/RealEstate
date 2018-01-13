@@ -4,7 +4,7 @@ import java.util.*;
 
 // TODO: write JavaDoc
 public class Agent extends Person {
-    final public double INITIAL_SALARY = 1500.0;
+    final private double INITIAL_SALARY = 1500.0;
     private double salary;
     private double salesBalance;
     private List<Client> clientList;
@@ -14,7 +14,7 @@ public class Agent extends Person {
         super(_name,_ID);
         this.salary = _salary;
         this.salesBalance = 0.0;
-        clientList = new ArrayList<Client>();
+        clientList = new ArrayList<>();
     }
 
     public Agent()
@@ -22,7 +22,7 @@ public class Agent extends Person {
         super("",0);
         this.salary = this.INITIAL_SALARY;
         this.salesBalance = 0.0;
-        clientList = new ArrayList<Client>();
+        clientList = new ArrayList<>();
     }
 
     public Agent(String _name, int _ID, double _salary, double _salesBalance)
@@ -30,6 +30,7 @@ public class Agent extends Person {
         super(_name,_ID);
         this.salary = _salary;
         this.salesBalance = _salesBalance;
+        clientList = new ArrayList<>();
     }
 
     public List<Client> getClientList()
@@ -55,7 +56,6 @@ public class Agent extends Person {
     public void setSalesBalance(double _salesBalance)
     {
         this.salesBalance = _salesBalance;
-
     }
 
     public int getSalaryLevel()
@@ -67,14 +67,6 @@ public class Agent extends Person {
     public void saveAgentInfo()
     {
         // TODO : save agent's info to csv file
-    }
-
-    public void updateSalary()
-    {
-        if(salesBalance/5 > salary)
-        {
-            salary *= 1.10;
-        }
     }
 
     public void makeSale(Client clientFrom, Client clientTo, Property property, double price)
@@ -102,5 +94,24 @@ public class Agent extends Person {
     public Client getClient(int index)
     {
         return clientList.get(index);
+    }
+
+    public int getNumClients() { return clientList.size(); }
+
+    @Override
+    public String getCSVData() {
+        String csvData = super.getCSVData() + "," +
+                Double.toString(this.getSalary()) + "," +
+                Integer.toString(this.getSalaryLevel()) + "," +
+                Double.toString(this.getSalesBalance()) + "," +
+                Integer.toString(this.getNumClients());
+        csvData += "\n";
+
+        for (Client client : clientList)
+        {
+            csvData += client.getCSVData() + "\n";
+        }
+
+        return csvData;
     }
 }

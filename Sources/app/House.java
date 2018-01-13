@@ -36,10 +36,35 @@ public class House extends Property {
             hasPool = _hasPool;
         }
 
+    public boolean isHasGarden() {
+        return hasGarden;
+    }
+
+    public void setHasGarden(boolean hasGarden) {
+        this.hasGarden = hasGarden;
+    }
+
+    public boolean isHasPool() {
+        return hasPool;
+    }
+
+    public void setHasPool(boolean hasPool) {
+        this.hasPool = hasPool;
+    }
+
     public House(String _neighbourhood)
     {
         super(_neighbourhood);
         hasGarden = false;
         hasPool = false;
+    }
+
+    @Override
+    public String getCSVData() {
+        String csvData = "house" + "," + super.getCSVData() + "," +
+                Boolean.toString(this.hasGarden) + "," +
+                Boolean.toString(this.hasPool);
+
+        return csvData;
     }
 }

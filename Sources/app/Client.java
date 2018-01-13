@@ -45,8 +45,8 @@ public class Client extends Person {
      */
     public Client(String _name, int _ID) {
         super(_name, _ID);
-        income = 0.0; // TODO: fix default salary
-        propertyList = new ArrayList<Property>();
+        income = 0.0;
+        propertyList = new ArrayList<>();
     }
 
     /**
@@ -61,7 +61,7 @@ public class Client extends Person {
     public Client(String _name, int _ID, double _income) {
         super(_name, _ID);
         income = _income;
-        propertyList = new ArrayList<Property>();
+        propertyList = new ArrayList<>();
     }
 
     public Client(String _name)
@@ -69,7 +69,7 @@ public class Client extends Person {
         super(_name, 0);
         income = 0.0;
         this.generateID();
-        propertyList = new ArrayList<Property>();
+        propertyList = new ArrayList<>();
     }
 
     /**
@@ -131,5 +131,20 @@ public class Client extends Person {
     public int getNumPropertiesOwned()
     {
         return this.propertyList.size();
+    }
+
+    @Override
+    public String getCSVData() {
+        String csvData = super.getCSVData() + "," +
+                Double.toString(this.getIncome()) + "," +
+                Integer.toString(this.getNumPropertiesOwned());
+        csvData += "\n";
+
+        for (Property property : propertyList)
+        {
+            csvData += property.getCSVData() + "\n";
+        }
+
+        return csvData;
     }
 }

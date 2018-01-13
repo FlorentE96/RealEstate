@@ -28,7 +28,7 @@ public class AgentPanel
         this.add(mainPanel);
     }
 
-    public Agent getAgetFromForm()
+    public Agent getAgentFromForm()
     {
         String agentName = nameField.getText();
         int ID = Integer.parseInt(idField.getText());

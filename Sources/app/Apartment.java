@@ -14,7 +14,6 @@ package app;
  * @author  Miron
  * @version 0.1
  */
-// TODO: Write JavaDoc
 public class Apartment extends Property {
 
     /**
@@ -51,5 +50,16 @@ public class Apartment extends Property {
         hasElevator = _hasElevator;
         floor = _floor;
         number = _number;
+    }
+
+    @Override
+    public String getCSVData() {
+        String csvData = "apt" + "," + super.getCSVData() + "," +
+                Boolean.toString(this.hasTerrace) + "," +
+                Boolean.toString(this.hasElevator) + "," +
+                Integer.toString(this.floor) + "," +
+                Integer.toString(this.number);
+
+        return csvData;
     }
 }
