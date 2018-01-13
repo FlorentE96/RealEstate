@@ -37,18 +37,22 @@ public class ClientsPanel
         rightClickMenu = new JPopupMenu();
 
         JMenuItem deleteClient = new JMenuItem("Delete");
+        JMenuItem editClient = new JMenuItem("Edit");
         JMenuItem addClient = new JMenuItem("Add new client");
-        JMenuItem addProperty = new JMenuItem("Register new property");
+        JMenuItem addProperty = new JMenuItem("Add property to client");
 
         deleteClient.addActionListener(this);
+        editClient.addActionListener(this);
         addClient.addActionListener(this);
         addProperty.addActionListener(this);
 
         deleteClient.setActionCommand("delete client");
+        editClient.setActionCommand("edit client");
         addClient.setActionCommand("add client");
         addProperty.setActionCommand("add property");
 
         rightClickMenu.add(deleteClient);
+        rightClickMenu.add(editClient);
         rightClickMenu.add(addClient);
         rightClickMenu.add(addProperty);
 
@@ -133,6 +137,9 @@ public class ClientsPanel
                 agent.removeClient(clientTable.getSelectedRow());
                 this.updateTable();
             }
+        }
+        else if(command.equals("edit client"))
+        {
         }
         else if(command.equals("add client"))
         {
