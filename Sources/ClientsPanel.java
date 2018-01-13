@@ -135,15 +135,19 @@ public class ClientsPanel
             int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this client?","Confirm", JOptionPane.YES_NO_OPTION);
             if(dialogResult == JOptionPane.YES_OPTION){
                 agent.removeClient(clientTable.getSelectedRow());
-                this.updateTable();
             }
         }
         else if(command.equals("edit client"))
         {
+            Client clientToEdit = agent.getClient(clientTable.getSelectedRow());
+            RegisterClientDialog myRegisterClientDialog = new RegisterClientDialog(null, clientToEdit);
         }
         else if(command.equals("add client"))
         {
-            // TODO : register client panel
+            RegisterClientDialog myRegisterClientDialog = new RegisterClientDialog(null);
+            Client client = myRegisterClientDialog.getRegisteredClient();
+            if(client != null)
+                agent.addClient(client);
         }
         else if(command.equals("add property"))
         {
@@ -151,6 +155,7 @@ public class ClientsPanel
             Property property = myRegisterPropertyDialog.getReturnedProperty();
             agent.getClient(clientTable.getSelectedRow()).addProperty(property);
         }
+        this.updateTable();
     }
 
 
