@@ -9,11 +9,13 @@ public class AgentPanel
         extends JPanel
 {
     private boolean editable;
+    private Agent agent;
     
     private JTextField nameField, idField, salaryField, balanceField, salaryLevelField;
 
-    public AgentPanel(Agent user, boolean isRegistering)
+    public AgentPanel(Agent _agent, boolean isRegistering)
     {
+        agent = _agent;
         editable = isRegistering;
         
         JPanel infoPanel;
@@ -31,11 +33,7 @@ public class AgentPanel
         balanceField.setEditable(editable);
         salaryLevelField.setEditable(false);
 
-        nameField.setText(user.getName());
-        idField.setText(Integer.toString(user.getID()));
-        salaryField.setText(Double.toString(user.getSalary()));
-        balanceField.setText(Double.toString(user.getSalesBalance()));
-        salaryLevelField.setText(Double.toString(user.getSalaryLevel()));
+        this.updateValues();
 
         JLabel nameLabel = new JLabel("Name:", JLabel.TRAILING);
         JLabel idLabel = new JLabel("ID:", JLabel.TRAILING);
@@ -106,5 +104,14 @@ public class AgentPanel
         double salesBalance = Double.parseDouble(balanceField.getText());
 
         return new Agent(agentName, ID, salary, salesBalance);
+    }
+
+    public void updateValues()
+    {
+        nameField.setText(agent.getName());
+        idField.setText(Integer.toString(agent.getID()));
+        salaryField.setText(Double.toString(agent.getSalary()));
+        balanceField.setText(Double.toString(agent.getSalesBalance()));
+        salaryLevelField.setText(Double.toString(agent.getSalaryLevel()));
     }
 }

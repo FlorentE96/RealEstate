@@ -19,13 +19,12 @@
 // TODO: Write JavaDoc
 public abstract class Property {
 
-    public enum PropertyStatus {rented, owned};
     /**
      * The neighbourhood of the property.
      *
      *
      */
-    private String neighbourhood;
+    private String address;
 
     /**
      * The number of the rooms.
@@ -35,21 +34,21 @@ public abstract class Property {
     private int numRoom;
 
     /**
-     * The price of the property.
+     * The price of the property, in $
      *
      * @see
      */
     private double price;
 
     /**
-     * The status of the Property.
+     * The size of the property, in m².
      *
      * @see
      */
-    private PropertyStatus status;
+    private double size;
 
     /**
-     * If the property had garage is TRUE, else is FALSE.
+     * If the property has a garage : TRUE, else  FALSE.
      *
      * @see
      */
@@ -58,68 +57,26 @@ public abstract class Property {
     /**
      * Constructor for the class.
      */
-    public Property(String _neighbourhood, int _numRoom, double _price, PropertyStatus _status, boolean _hasGarage){
-
-        neighbourhood = _neighbourhood;
+    public Property(String _address, int _numRoom, double _size, double _price, boolean _hasGarage)
+    {
+        address = _address;
+        size = _size;
         numRoom = _numRoom;
         price = _price;
-        status = _status;
         hasGarage = _hasGarage;
-
     }
 
-    public Property(String _neighbourhood){
-
-        neighbourhood = _neighbourhood;
-        numRoom = 0;
+    public Property(String _address)
+    {
+        address = _address;
+        size = 0.0;
+        numRoom = 1;
         price = 0.0;
-        status = PropertyStatus.owned;
         hasGarage = false;
-
-    }
-
-    public String getNeighbourhood() {
-        return neighbourhood;
-    }
-
-    public void setNeighbourhood(String neighbourhood) {
-        this.neighbourhood = neighbourhood;
-    }
-
-    public int getNumRoom() {
-        return numRoom;
-    }
-
-    public void setNumRoom(int numRoom) {
-        this.numRoom = numRoom;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public PropertyStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(PropertyStatus status) {
-        this.status = status;
-    }
-
-    public boolean isHasGarage() {
-        return hasGarage;
-    }
-
-    public void setHasGarage(boolean hasGarage) {
-        this.hasGarage = hasGarage;
     }
 
     public String toString()
     {
-        return neighbourhood;
+        return address;
     }
 }

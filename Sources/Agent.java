@@ -96,4 +96,9 @@ public class Agent extends Person {
     {
         clientList.remove(index);
     }
+
+    public Client getClient(int index)
+    {
+        return clientList.get(index);
+    }
 }

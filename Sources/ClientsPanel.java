@@ -1,10 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.event.*;
 import javax.swing.table.*;
-import java.util.*;
 import java.awt.event.*;
-
 
 public class ClientsPanel
         extends JPanel
@@ -38,18 +35,23 @@ public class ClientsPanel
         scrollPane = new JScrollPane(clientTable);
         clientTable.setFillsViewportHeight(true);
         rightClickMenu = new JPopupMenu();
+
         JMenuItem deleteClient = new JMenuItem("Delete");
         JMenuItem addClient = new JMenuItem("Add new client");
         JMenuItem addProperty = new JMenuItem("Register new property");
+
         deleteClient.addActionListener(this);
         addClient.addActionListener(this);
         addProperty.addActionListener(this);
+
         deleteClient.setActionCommand("delete client");
         addClient.setActionCommand("add client");
         addProperty.setActionCommand("add property");
+
         rightClickMenu.add(deleteClient);
         rightClickMenu.add(addClient);
-//        clientTable.setComponentPopupMenu(rightClickMenu);
+        rightClickMenu.add(addProperty);
+
         clientTable.addMouseListener(this);
 
         this.add(scrollPane);
@@ -57,7 +59,7 @@ public class ClientsPanel
 
     //getTableModel
     private DefaultTableModel getTableModel(){
-        String[] columnNames = {"ID","Name","Income","Status"};
+        String[] columnNames = {"ID","Name","Income","Num. Prop."};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0){
             public boolean isCellEditable(int row, int column){
                 return false; // This causes all cells to be not editable
@@ -67,8 +69,7 @@ public class ClientsPanel
                     client.getID(),
                     client.getName(),
                     client.getIncome(),
-                    "", // TODO : client.getStatus(),
-                    client.getNumPropertiesOwned(), //TODO : client.getStatus()
+                    client.getNumPropertiesOwned()
                     });
         }
         return tableModel;
@@ -110,7 +111,7 @@ public class ClientsPanel
 
             if(e.getClickCount() == 2)
             {
-                // TODO : edit client
+                // TODO : display list of properties
             }
         }
         else
@@ -139,7 +140,9 @@ public class ClientsPanel
         }
         else if(command.equals("add property"))
         {
-            // TODO : register property panel
+            RegisterPropertyDialog myRegisterPropertyDialog = new RegisterPropertyDialog(null);
+            Property property = myRegisterPropertyDialog.getReturnedProperty();
+            agent.getClient(clientTable.getSelectedRow()).addProperty(property);
         }
     }
 

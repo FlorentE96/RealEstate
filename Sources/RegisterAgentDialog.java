@@ -3,7 +3,10 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.Arrays;
 
-public class RegisterAgentDialog extends JDialog implements ActionListener{
+public class RegisterAgentDialog
+        extends JDialog
+        implements ActionListener
+{
     private AgentPanel registrationPanel;
     private JButton valButton, canButton;
     private Agent agentReturned;

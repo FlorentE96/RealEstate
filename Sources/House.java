@@ -13,21 +13,31 @@
  */
 // TODO: Write JavaDoc
 public class House extends Property {
+
     /**
-     * If the property had garage is TRUE, else is FALSE.
+     * If the property has a garden : TRUE, else FALSE.
      *
      * @see
      */
     private boolean hasGarden;
 
-    public House(String _neighbourhood, int _numRooms, double _price, PropertyStatus _status, boolean _hadGarage, boolean _hasGarden){
-            super(_neighbourhood, _numRooms, _price, _status, _hadGarage);
+    /**
+     * If the property has a pool : TRUE, else FALSE.
+     *
+     * @see
+     */
+    private boolean hasPool;
+
+    public House(String _address, int _numRooms, double _size, double _price, boolean _hasGarage, boolean _hasGarden, boolean _hasPool){
+            super(_address, _numRooms, _size, _price, _hasGarage);
             hasGarden = _hasGarden;
+            hasPool = _hasPool;
         }
 
     public House(String _neighbourhood)
     {
         super(_neighbourhood);
         hasGarden = false;
+        hasPool = false;
     }
 }

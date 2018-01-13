@@ -21,6 +21,7 @@ public class Apartment extends Property {
      * @see
      */
     private int floor;
+
     /**
      * The number of the apartment;
      *
@@ -28,8 +29,24 @@ public class Apartment extends Property {
      */
     private int number;
 
-    public Apartment(String _neighbourhood, String _nRooms, double _price, HouseStatus _status, Owner _owner, Renter _renter, bollean _hadGarage, int _floor, int _number){
-        super(String _neighbourhood, String _nRooms, double _price, HouseStatus _status, Owner _owner, Renter _renter, bollean _hadGarage)
+    /**
+     * If the apartment has a terrace : TRUE, else FALSE.
+     *
+     * @see
+     */
+    private boolean hasTerrace;
+
+    /**
+     * If the apartment has an elevator : TRUE, else FALSE.
+     *
+     * @see
+     */
+    private boolean hasElevator;
+
+    public Apartment(String _address, int _numRooms, double _price, double _size, boolean _hasGarage, boolean _hasTerrace, boolean _hasElevator, int _floor, int _number){
+        super(_address, _numRooms, _size, _price, _hasGarage);
+        hasTerrace = _hasTerrace;
+        hasElevator = _hasElevator;
         floor = _floor;
         number = _number;
     }

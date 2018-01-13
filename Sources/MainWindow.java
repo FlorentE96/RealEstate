@@ -1,16 +1,15 @@
-import java.awt.*;
 import javax.swing.*;
+import javax.swing.event.*;
 import java.awt.event.*;
-import java.io.*;
-import java.util.*;
 
 public class MainWindow
         extends JFrame
-        implements ActionListener
+        implements ActionListener, ChangeListener
 {
     private AgentPanel myAgentPanel;
     private ClientsPanel myClientsPanel;
     private SalePanel mySalePanel;
+    private JTabbedPane myTabbedPane;
     private Agent user;
 
     public MainWindow(Agent _user)
@@ -37,8 +36,8 @@ public class MainWindow
         myClientsPanel = new ClientsPanel(user);
         mySalePanel = new SalePanel(user);
 
-        JTabbedPane myTabbedPane = new JTabbedPane();
-
+        myTabbedPane = new JTabbedPane();
+        myTabbedPane.addChangeListener(this);
         myTabbedPane.addTab("Performance", myAgentPanel);
         myTabbedPane.addTab("Clients", myClientsPanel);
         myTabbedPane.addTab("Sale", mySalePanel);
@@ -77,4 +76,9 @@ public class MainWindow
             System.exit(0);
     }
 
+    public void stateChanged(ChangeEvent e) {
+        myAgentPanel.updateValues();
+        myClientsPanel.updateTable();
+        mySalePanel.updateValues();
+    }
 }
