@@ -2,6 +2,7 @@ package app.ui;
 
 import app.*;
 import javax.swing.*;
+import javax.swing.text.StyledEditorKit;
 import java.awt.event.*;
 import java.io.*;
 import java.util.Arrays;
@@ -40,7 +41,7 @@ public class LoginWindow
      * A flag to know if an user has been correctly logged.
      *
      * @see LoginWindow#actionPerformed(ActionEvent)
-     * @see LoginWindow#showLoginDialog()
+     *
      */
     private boolean isLogged;
 
@@ -122,7 +123,7 @@ public class LoginWindow
                     this.setVisible(false);
                     Agent user = loadFromFile(myLoginPanel.getLogin());
                     MainWindow myMainWindow = new MainWindow(null, user);
-                    // TODO : save data
+                    saveToFile(user, myLoginPanel.getLogin());
                     System.exit(0);
                 }
             }
@@ -139,11 +140,13 @@ public class LoginWindow
         else if(command.equals("register"))
         {
             // TODO : check if already existing
-            // TODO : register informations (ID name etc.)
             RegisterAgentDialog myDialog = new RegisterAgentDialog(this);
             Agent agentReturned = myDialog.getAgentReturned();
+
             if(agentReturned != null)
             {
+                agentReturned.generateID();
+                saveToFile(agentReturned, myLoginPanel.getLogin());
                 registerNewUser(myLoginPanel.getLogin(), myLoginPanel.getPassword());
                 agentReturned.saveAgentInfo();
                 JOptionPane.showMessageDialog(null, "Registration successful");
@@ -158,36 +161,123 @@ public class LoginWindow
             System.exit(0);
     }
 
-    public Agent showLoginDialog()
-    {
-
-        this.pack();
-        this.setVisible(true);
-
-        while(!isLogged)
-        {
-            try {
-                Thread.sleep(100); // Give time to other threads to process events
-            } catch (InterruptedException ie) {
-            }
-        }
-
-        this.setVisible(false);
-        return loadFromFile(myLoginPanel.getLogin());
-    }
-
     private Agent loadFromFile(String _login)
     {
-        // TODO : read name
-        String name = "";
-        // TODO : read ID
-        int ID = 123;
-        // TODO : read salary
-        double salary = 0.0;
-        // TODO : read sales balance
-        double salesBalance = 0.0;
+        Agent agent = new Agent();
+        File file = new File(_login + ".csv");
+        FileReader fr = null;
+        BufferedReader br = null;
+        String line;
+        try {
+            fr = new FileReader(file);
+            br = new BufferedReader(fr);
 
-        return new Agent(name, ID, salary, salesBalance);
+            line = br.readLine();
+
+            int numCients = 0;
+            { // to restrain the scope of csvData
+                String[] csvData = line.split(",");
+                agent.setID(Integer.parseInt(csvData[0]));
+                agent.setName(csvData[1]);
+                agent.setSalary(Double.parseDouble(csvData[2]));
+                agent.setSalesBalance(Double.parseDouble(csvData[3]));
+
+                numCients = Integer.parseInt(csvData[4]);
+            }
+
+            for(int i = 0; i<numCients; i++) {
+                line = br.readLine();
+
+                Client client = new Client();
+                int numProp = 0;
+
+                {
+                    String[] csvData = line.split(",");
+                    client.setID(Integer.parseInt(csvData[0]));
+                    client.setName(csvData[1]);
+                    client.setIncome(Double.parseDouble(csvData[2]));
+
+                    numProp = Integer.parseInt(csvData[3]);
+                }
+
+                for(int j=0; j<numProp; j++)
+                {
+                    line = br.readLine();
+
+                    String[] csvData = line.split(",");
+
+                    if(csvData[0].equals("house")) {
+                        House property = new House();
+
+                        property.setAddress(csvData[1]);
+                        property.setNumRoom(Integer.parseInt(csvData[2]));
+                        property.setPrice(Double.parseDouble(csvData[3]));
+                        property.setSize(Double.parseDouble(csvData[4]));
+                        property.setHasGarage(Boolean.parseBoolean(csvData[5]));
+
+                        property.setHasGarden(Boolean.parseBoolean(csvData[6]));
+                        property.setHasPool(Boolean.parseBoolean(csvData[7]));
+
+                        client.addProperty(property);
+                    }
+                    else if(csvData[0].equals("apt"))
+                    {
+                        Apartment property = new Apartment();
+
+                        property.setAddress(csvData[1]);
+                        property.setNumRoom(Integer.parseInt(csvData[2]));
+                        property.setPrice(Double.parseDouble(csvData[3]));
+                        property.setSize(Double.parseDouble(csvData[4]));
+                        property.setHasGarage(Boolean.parseBoolean(csvData[5]));
+
+                        property.setHasTerrace(Boolean.parseBoolean(csvData[6]));
+                        property.setHasElevator(Boolean.parseBoolean(csvData[7]));
+                        property.setFloor(Integer.parseInt(csvData[8]));
+                        property.setNumber(Integer.parseInt(csvData[9]));
+
+                        client.addProperty(property);
+                    }
+                }
+
+                agent.addClient(client);
+            }
+            return agent;
+        }
+        catch (NumberFormatException | IOException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+            return null;
+        }
+        finally {
+            try {
+                fr.close();
+                br.close();
+            }
+            catch(Exception ex) {}
+        }
+    }
+
+    private void saveToFile(Agent agent, String _login)
+    {
+        File file = new File(_login + ".csv");
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+        try {
+            fw = new FileWriter(file, false);
+            bw = new BufferedWriter (fw);
+            String csvData = agent.getCSVData();
+            bw.write(csvData);
+        }
+        catch(IOException ioEx) {
+            JOptionPane.showMessageDialog(null, ioEx.getMessage());
+            return;
+        }
+        finally {
+            try {
+                bw.close();
+                fw.close();
+            }
+            catch(Exception ex) {}
+        }
     }
 
     private void registerNewUser(String _login, char[] _password) {

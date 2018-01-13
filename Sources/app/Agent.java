@@ -102,14 +102,13 @@ public class Agent extends Person {
     public String getCSVData() {
         String csvData = super.getCSVData() + "," +
                 Double.toString(this.getSalary()) + "," +
-                Integer.toString(this.getSalaryLevel()) + "," +
                 Double.toString(this.getSalesBalance()) + "," +
                 Integer.toString(this.getNumClients());
         csvData += "\n";
 
         for (Client client : clientList)
         {
-            csvData += client.getCSVData() + "\n";
+            csvData += client.getCSVData();
         }
 
         return csvData;

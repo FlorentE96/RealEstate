@@ -52,13 +52,54 @@ public class Apartment extends Property {
         number = _number;
     }
 
+    public Apartment()
+    {
+        super();
+        hasTerrace = false;
+        hasElevator = false;
+        floor = 0;
+        number = 1;
+    }
+
+    public int getFloor() {
+        return floor;
+    }
+
+    public void setFloor(int floor) {
+        this.floor = floor;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public boolean isHasTerrace() {
+        return hasTerrace;
+    }
+
+    public void setHasTerrace(boolean hasTerrace) {
+        this.hasTerrace = hasTerrace;
+    }
+
+    public boolean isHasElevator() {
+        return hasElevator;
+    }
+
+    public void setHasElevator(boolean hasElevator) {
+        this.hasElevator = hasElevator;
+    }
+
     @Override
     public String getCSVData() {
         String csvData = "apt" + "," + super.getCSVData() + "," +
-                Boolean.toString(this.hasTerrace) + "," +
-                Boolean.toString(this.hasElevator) + "," +
-                Integer.toString(this.floor) + "," +
-                Integer.toString(this.number);
+                Boolean.toString(this.isHasTerrace()) + "," +
+                Boolean.toString(this.isHasElevator()) + "," +
+                Integer.toString(this.getFloor()) + "," +
+                Integer.toString(this.getNumber());
 
         return csvData;
     }

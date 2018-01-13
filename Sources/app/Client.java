@@ -49,6 +49,12 @@ public class Client extends Person {
         propertyList = new ArrayList<>();
     }
 
+    public Client() {
+        super("", 0);
+        income = 0.0;
+        propertyList = new ArrayList<>();
+    }
+
     /**
      * Overloaded constructor for class app.Client
      *

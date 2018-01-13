@@ -77,6 +77,15 @@ public abstract class Property {
         hasGarage = false;
     }
 
+    public Property()
+    {
+        address = "";
+        size = 0.0;
+        numRoom = 1;
+        price = 0.0;
+        hasGarage = false;
+    }
+
     public String getAddress() {
         return address;
     }

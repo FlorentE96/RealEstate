@@ -36,6 +36,13 @@ public class House extends Property {
             hasPool = _hasPool;
         }
 
+    public House()
+    {
+        super();
+        hasGarden = false;
+        hasPool = false;
+    }
+
     public boolean isHasGarden() {
         return hasGarden;
     }
