@@ -16,7 +16,7 @@ public class MainProgram {
      * Main method, input vector of the program.
      * The only thing that this method does is to run the login window.
      *
-     * @param args
+     * @param args arguments passed to the program.
      *
      * @see LoginWindow
      */

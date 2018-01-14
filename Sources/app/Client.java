@@ -100,7 +100,7 @@ public class Client extends Person {
      *                  <code>false</code> if the person isn't trustable for the property.
      */
     public boolean isTrustable(Property property) {
-        // TODO: implementation
+        // TODO: is trustable implementation
         return true;
     }
 
@@ -128,7 +128,7 @@ public class Client extends Person {
      * Overloaded method.
      * Removes the property at a certain index of the agent's list.
      *
-     * @param index
+     * @param index The index of the property to be removed.
      */
     public void removeProperty(int index)
     {

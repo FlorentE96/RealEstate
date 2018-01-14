@@ -189,7 +189,7 @@ public class SalePanel
      * Overridden method of <code>ListSelectionListener</code>.
      * Is triggered every time the selected property is changed, and updates the advised price accordingly.
      *
-     * @param e
+     * @param e The <code>ListSelectionEvent</code> that triggered the listener.
      *
      * @see ListSelectionListener
      */

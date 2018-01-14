@@ -74,8 +74,8 @@ public class RegisterClientDialog
      * The dialogs fields are filled with the existing client's data, and the "Register" button's caption
      * is changed to "Edit".
      *
-     * @param owner
-     * @param _client
+     * @param owner The frame that called the dialog.
+     * @param _client The client to edit.
      */
     public RegisterClientDialog(JFrame owner, Client _client)
     {
@@ -107,7 +107,7 @@ public class RegisterClientDialog
      * Treats the events triggered by the 2 buttons :
      * <ul>
      *     <li>Register/Edit: populates/edit the client with fields' data, generate his unique ID if the client is new,
-     *     and hides the dialog</code></li>
+     *     and hides the dialog</li>
      *     <li>Cancel: hides the window without instantiating/altering the agent.</li>
      * </ul>
      *

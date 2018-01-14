@@ -118,6 +118,8 @@ public class MainWindow
     /**
      * Creates the main menu.
      * This menu only contains an option to quit.
+     *
+     * @return The menu bar.
      */
     private JMenuBar makeMenu()
     {

@@ -2,11 +2,11 @@ package app;
 
 /**
  * <b>=Person is the base class for all persons</b>
- * <p>Each person has:
+ * <p>Each person has:</p>
  * <ul>
  *     <li>An ID</li>
  *     <li>A name</li>
- * </ul></p>
+ * </ul>
  *
  * @see     Client
  * @see     Agent

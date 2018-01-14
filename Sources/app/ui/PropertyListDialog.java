@@ -51,8 +51,8 @@ public class PropertyListDialog
      * Initializes the dialog as modal, and adds all the components.
      * The dialog is set visible directly upon creation.
      *
-     * @param owner
-     * @param _client
+     * @param owner The frame that called the dialog.
+     * @param _client The client of which to list the clients.
      */
     public PropertyListDialog(JFrame owner, Client _client)
     {

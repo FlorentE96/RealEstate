@@ -6,13 +6,13 @@ import app.*;
 
 /**
  * <b>AgentPanel is a panel containing an agent's information.</b>
- * <p>The different fields displayed are
+ * <p>The different fields displayed are :</p>
  * <ul>
  *     <li>The name of the agent</li>
  *     <li>The ID of the agent </li>
  *     <li>The salary of the agent</li>
  *     <li>The sales' balance of the agent</li>
- * </ul></p>
+ * </ul>
  * <p>The panel can be updated to reflect the new values using the <code>updateValues()</code> method.</p>
  * <p>By default, all the fields are disabled (read-only) but the panel can be created in registration mode, for
  * the registration of a new agent or the modification of an existing one.</p>

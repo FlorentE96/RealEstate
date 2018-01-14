@@ -9,16 +9,16 @@ import java.util.Arrays;
 /**
  * <b>LoginWindow is the dialog for logging an agent in or registering a new user.</b>
  * <p>This is the first dialog shown when the program starts.</p>
- * <p>To log in, you need :
+ * <p>To log in, you need :</p>
  * <ul>
  *     <li>A login</li>
  *     <li>A password</li>
- * </ul></p>
+ * </ul>
  *
  * <p>If the login/password combination does not match any registered user, an error dialog is displayed and the fields
  * are cleared.
  * If the combination is correct, the agent's data is retrieved from a CSV file using his login, and the main window is
- * diplayed.<p/>
+ * diplayed.</p>
  * <p>After typing a login and a password, the user has the possibility to register. In that case,
  * a <code>RegisterAgentDialog</code> will be displayed asking for his information. Once all the fields of this dialog
  * have been filled and the user has clicked "register", his login and password will be stored to an encrypted text
@@ -63,6 +63,7 @@ public class LoginWindow
     /**
      * Creates the main login panel.
      *
+     * @return The panel.
      * @see LoginPanel
      */
     private JPanel makePanel()

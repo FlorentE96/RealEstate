@@ -189,7 +189,7 @@ public class RegisterPropertyDialog
      * Overridden method of <code>ActionListener</code>.
      * Treats the events triggered by the 2 buttons :
      * <ul>
-     *     <li>Register/Edit : populates/edit the property with fields' data, and hides the dialog</code></li>
+     *     <li>Register/Edit : populates/edit the property with fields' data, and hides the dialog</li>
      *     <li>Cancel : hides the window without instantiating/altering the property.</li>
      * </ul>
      *
