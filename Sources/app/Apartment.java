@@ -40,7 +40,7 @@ public class Apartment extends Property {
     private boolean hasElevator;
 
     public Apartment(String _address, int _numRooms, double _price, double _size, boolean _hasGarage, boolean _hasTerrace, boolean _hasElevator, int _floor, int _number){
-        super(_address, _numRooms, _size, _price, _hasGarage);
+        super(_address, _numRooms, _price, _size, _hasGarage);
         hasTerrace = _hasTerrace;
         hasElevator = _hasElevator;
         floor = _floor;
