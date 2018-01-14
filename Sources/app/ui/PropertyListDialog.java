@@ -99,7 +99,7 @@ public class PropertyListDialog
         return tableModel;
     }
 
-    public void updateTable()
+    private void updateTable()
     {
         propertyTable.setModel(getTableModel());
     }
