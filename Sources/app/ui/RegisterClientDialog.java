@@ -56,6 +56,8 @@ public class RegisterClientDialog
         this.setVisible(true);
     }
 
+    public Client getRegisteredClient() { return client; }
+
     @Override
     public void actionPerformed(ActionEvent e)
     {
@@ -87,10 +89,5 @@ public class RegisterClientDialog
         {
             this.setVisible(false);
         }
-    }
-
-    public Client getRegisteredClient()
-    {
-        return client;
     }
 }

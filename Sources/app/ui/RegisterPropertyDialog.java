@@ -188,6 +188,7 @@ public class RegisterPropertyDialog
         }
     }
 
+    @Override
     public void itemStateChanged(ItemEvent evt) {
         CardLayout cl = (CardLayout) (cardPanel.getLayout());
         cl.show(cardPanel, (String) evt.getItem());

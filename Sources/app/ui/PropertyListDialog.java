@@ -8,9 +8,8 @@ import java.awt.event.*;
 
 public class PropertyListDialog
         extends JDialog
-    implements MouseListener, ActionListener
+        implements MouseListener, ActionListener
 {
-
     private JPopupMenu rightClickMenu, rightClickMenuLimited;
     private JTable propertyTable;
 
@@ -53,8 +52,6 @@ public class PropertyListDialog
         this.setVisible(true);
     }
 
-
-    //getTableModel
     private DefaultTableModel getTableModel(){
         String[] columnNames = {"Type", "Address","Num. Rooms","Size","Garden", "Garage", "Pool", "Terrace", "Elevator", "Floor", "Number", "price"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0){
@@ -104,6 +101,7 @@ public class PropertyListDialog
         propertyTable.setModel(getTableModel());
     }
 
+    @Override
     public void mouseReleased(MouseEvent e) {
         Point point = e.getPoint();
         int rowAtPoint = propertyTable.rowAtPoint(point);
@@ -131,11 +129,20 @@ public class PropertyListDialog
             propertyTable.clearSelection();
         }
     }
+
+    @Override
     public void mousePressed(MouseEvent e) {}
+
+    @Override
     public void mouseEntered(MouseEvent e) {}
+
+    @Override
     public void mouseExited(MouseEvent e) {}
+
+    @Override
     public void mouseClicked(MouseEvent e) {}
 
+    @Override
     public void actionPerformed(ActionEvent e)
     {
         String command = e.getActionCommand();

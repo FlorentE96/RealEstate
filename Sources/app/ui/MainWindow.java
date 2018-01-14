@@ -23,6 +23,7 @@ import java.awt.event.*;
  * @see ClientsPanel
  * @see SalePanel
  *
+ * @version 1.0
  */
 public class MainWindow
         extends JDialog
@@ -69,7 +70,6 @@ public class MainWindow
 
     private JMenuBar makeMenu()
     {
-        //Barras de menus são compostas por menus
         JMenuBar mbr_barra = new JMenuBar();
         JMenu fileMenu;
         JMenuItem quit;
@@ -80,7 +80,6 @@ public class MainWindow
 
         quit = new JMenuItem("Quit");
 
-        // fileMenu.addSeparator();
         fileMenu.add(quit);
 
         quit.setActionCommand("quit");
@@ -89,6 +88,7 @@ public class MainWindow
         return mbr_barra;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e)
     {
         String command = e.getActionCommand();
@@ -98,11 +98,10 @@ public class MainWindow
         }
     }
 
+    @Override
     public void stateChanged(ChangeEvent e) {
         myAgentPanel.updateValues();
         myClientsPanel.updateTable();
         mySalePanel.updateValues();
     }
-
-//    public void saveDataToFile
 }

@@ -5,7 +5,7 @@ package app;
  * <p>Apartment is a subclass of Property</p>
  * <p>Each apartment has :</p>
  * <ul>
- *     <li>The common data of all property (address, number of rooms, size, price and garage option)</li>
+ *     <li>The common data of all properties (address, number of rooms, size, price and garage option)</li>
  *     <li>A boolean representing the presence of a terrace</li>
  *     <li>A boolean representing the presence of an elevator</li>
  *     <li>A floor number (int)</li>
@@ -15,7 +15,7 @@ package app;
  * @see Property
  *
  * @author  Florent
- * @version 0.1
+ * @version 1.0
  */
 public class Apartment extends Property {
 
@@ -117,8 +117,8 @@ public class Apartment extends Property {
      * Overriden method to retrieve CSV data in a String, from the apartment's attributes
      * Data is the following, separated by commas :
      * <ul>
-     *     <li>The identifier "apt" to explicit the type of property</li>
-     *     <li>The common data of all property (address, number of rooms, size, price and garage option)</li>
+     *     <li>The identifier "apt" to specify the type of property</li>
+     *     <li>The common data of all properties (address, number of rooms, size, price and garage option)</li>
      *     <li>The presence of a terrace</li>
      *     <li>The presence of an elevator</li>
      *     <li>The floor of the apartment</li>

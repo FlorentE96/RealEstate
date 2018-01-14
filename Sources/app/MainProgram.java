@@ -7,6 +7,8 @@ import javax.swing.JFrame;
  * <b>Main program class.</b>
  * <p>Is executed at the launch of the program.</p>
  *
+ * @author  Florent
+ * @version 1.0
  */
 public class MainProgram {
 
