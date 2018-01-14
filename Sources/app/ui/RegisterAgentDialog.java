@@ -43,6 +43,7 @@ public class RegisterAgentDialog
         return agentReturned;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e)
     {
         String command = e.getActionCommand();

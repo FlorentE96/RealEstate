@@ -88,6 +88,7 @@ public class SalePanel
         updateClientTo();
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
         if(command.equals("sell"))
@@ -118,6 +119,7 @@ public class SalePanel
         this.updatePropertyList();
     }
 
+    @Override
     public void valueChanged(ListSelectionEvent e)
     {
         this.updateAdvisedPrice();

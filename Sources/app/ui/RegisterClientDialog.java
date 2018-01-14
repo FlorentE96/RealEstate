@@ -56,6 +56,7 @@ public class RegisterClientDialog
         this.setVisible(true);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e)
     {
         String command = e.getActionCommand();

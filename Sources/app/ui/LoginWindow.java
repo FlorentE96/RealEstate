@@ -7,23 +7,32 @@ import java.io.*;
 import java.util.Arrays;
 
 /**
- * <b>LoginWindow is the dialog for loging a user</b>
+ * <b>LoginWindow is the dialog for logging an agent in or registering a new user.</b>
+ * <p>This is the first dialog shown when the program starts.</p>
  * <p>To log in, you need :
  * <ul>
  *     <li>A login</li>
  *     <li>A password</li>
  * </ul></p>
  *
- * <p>Using the "File" menu, you can register a new user, or quit the program</p>
- * <p>To launch the login dialog, call the person#showLoginDialog() method.
- * This method returns an @app.Agent object if the log was successful.</p>
- * <p>The @app.Agent object returned contains information loaded from an encrypted CSV file (@loadFromeFile(int _login).</p>
+ * <p>If the login/password combination does not match any registered user, an error dialog is displayed and the fields
+ * are cleared.
+ * If the combination is correct, the agent's data is retrieved from a CSV file using his login, and the main window is
+ * diplayed.<p/>
+ * <p>After typing a login and a password, the user has the possibility to register. In that case,
+ * a <code>RegisterAgentDialog</code> will be displayed asking for his information. Once all the fields of this dialog
+ * have been filled and the user has clicked "register", his login and password will be stored to an encrypted text
+ * file, his information to a CSV file and he will then have the possibility to log in in the future.
+ * <strong>The encryption is not yet implemented.</strong></p>
  *
  * @see     LoginPanel
+ * @see     MainWindow
+ * @see     RegisterAgentDialog
  * @see     Agent
+ * @see     JPanel
  *
  * @author  Florent
- * @version 0.1
+ * @version 1.0
  */
 public class LoginWindow
         extends JFrame
@@ -33,14 +42,12 @@ public class LoginWindow
      * Login panel, containing all the widgets of the login window.
      *
      * @see LoginPanel
-     * @see LoginWindow#makePanel()
      */
     private LoginPanel myLoginPanel;
 
     /**
      * Constructor of LoginWindow.
      * Sets the window's title, and configures the panes/menu.
-     * The isLogged variable is set to <i>false</i>.
      */
     public LoginWindow()
     {
@@ -66,6 +73,35 @@ public class LoginWindow
         return mainPanel;
     }
 
+    /**
+     * Overridden method of <code>ActionListener</code>.
+     * Treats the events triggered by the register and login buttons :
+     * <ul>
+     *     <li><b>Login button </b>: compares the password entered for the true password corresponding to login.
+     *     If the password is wrong or the login doesn't exist, a message dialog is displayed and the
+     *     GUI data is cleared.
+     *     If the password is correct, the login dialog becomes invisible, the agen't data is loaded
+     *     and the main window is displayed. After the closing of th main window, the agent's new data
+     *     is saved to his CSV file. Then the program terminates.</li>
+     *     <li><b>Register button</b> : Opens a <code>RegisterAgentDialog</code> to let the agent fill up his
+     *     information. Once this is done, the populated agent object is retrieved, the login/password combination
+     *     is saved to the encrypted file and the agent's data to a CSV file.</li>
+     * </ul>
+     * <p>After both of these actions, the GUI is cleared.</p>
+     *
+     * @param e The <code>ActionEvent</code> which triggered the listener.
+     *
+     * @see LoginWindow#getPassword(String)
+     * @see LoginPanel#getPassword()
+     * @see LoginWindow#loadFromFile(String)
+     * @see MainWindow
+     * @see LoginWindow#saveToFile(Agent, String)
+     * @see LoginPanel#clearGUIValues()
+     * @see LoginWindow#registerNewUser(String, char[])
+     * @see Agent#generateID()
+     * @see RegisterAgentDialog
+     */
+    @Override
     public void actionPerformed(ActionEvent e)
     {
         String command = e.getActionCommand();
@@ -82,7 +118,9 @@ public class LoginWindow
                     saveToFile(user, myLoginPanel.getLogin());
                     System.exit(0);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Login or password incorrect.");
+                    JOptionPane.showMessageDialog(null,
+                            "Login or password incorrect. Please try again.");
+                    myLoginPanel.clearGUIValues();
                 }
             }
         }
@@ -97,7 +135,6 @@ public class LoginWindow
                 agentReturned.generateID();
                 saveToFile(agentReturned, myLoginPanel.getLogin());
                 registerNewUser(myLoginPanel.getLogin(), myLoginPanel.getPassword());
-                agentReturned.saveAgentInfo();
                 JOptionPane.showMessageDialog(null, "Registration successful");
             }
             else
@@ -106,10 +143,24 @@ public class LoginWindow
             }
             myLoginPanel.clearGUIValues();
         }
-        else if(command.equals("quit"))
-            System.exit(0);
     }
 
+    /**
+     * <b>Populates an agent object based on a CSV file.</b>
+     * <p>The CSV file is named using the agent's login, passed as a parameter.
+     * It contains :</p>
+     * <ul>
+     *     <li>The agent's information (ID, name, salary, balance)</li>
+     *     <li>The information for each of his clients (ID, name, income...)</li>
+     *     <li>The information for each property of his clients (address, numRooms, size...)</li>
+     * </ul>
+     * <p>If the CSV file doesn't exist, the method returns <code>null</code>.</p>
+     *
+     * @param _login The login of the agent of which the information has to be retrieved.
+     * @return The agent, populated by the data on the CSV file OR null if the file doesn't exist
+     *
+     * @see Agent
+     */
     private Agent loadFromFile(String _login)
     {
         Agent agent = new Agent();
@@ -194,12 +245,31 @@ public class LoginWindow
             br.close();
             return agent;
         }
-        catch (NumberFormatException | IOException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
+        catch (NumberFormatException nfEx) {
+            JOptionPane.showMessageDialog(null, "There was a problem when retrieving " +
+                    "the agent's data.\n Please try again");
+            return null;
+        }
+        catch (IOException ioEx) {
+            JOptionPane.showMessageDialog(null, "This user doesn't exist....");
             return null;
         }
     }
 
+    /**
+     * Saves an agent's data to a CSV file.
+     * <p>It contains :</p>
+     * <ul>
+     *     <li>The agent's information (ID, name, salary, balance)</li>
+     *     <li>The information for each of his clients (ID, name, income...)</li>
+     *     <li>The information for each property of his clients (address, numRooms, size...)</li>
+     * </ul>
+     *
+     * @param agent The agent of which the data should be saved.
+     * @param _login The login of the agent, used as a name for the CSV file.
+     *
+     * @see Agent#getCSVData()
+     */
     private void saveToFile(Agent agent, String _login)
     {
         File file = new File(_login + ".csv");
@@ -218,6 +288,12 @@ public class LoginWindow
         }
     }
 
+    /**
+     * Register a new user's login/password combination to the encrypted password file.
+     *
+     * @param _login The login of the user
+     * @param _password The corresponding password
+     */
     private void registerNewUser(String _login, char[] _password) {
         try {
             File passwordFile = new File("passwords.txt");
@@ -235,6 +311,12 @@ public class LoginWindow
         }
     }
 
+    /**
+     * Retrieves the password associated to a certain login, from the encrypted password file.
+     *
+     * @param _login the login for which to retrieve the password.
+     * @return The password.
+     */
     private char[] getPassword(String _login)
     {
         try {

@@ -4,12 +4,38 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
+/**
+ * <b>LoginPanel is the panel for the login window, containing all the components.</b>
+ * <p>It contains the 'login' and 'password' fields, as well as 2 buttons : 'login' and 'register'.</p>
+ * <p>The fields' values can be retrieved via getters, and the UI can be cleared using
+ * the <code>clearGUIValues</code> method.</p>
+ *
+ * @see LoginWindow
+ * @see JPanel
+ *
+ * @author  Florent
+ * @version 1.0
+ */
 public class LoginPanel extends JPanel
 {
-    // variables d'instance - remplacez l'exemple qui suit par le vôtre
+    /**
+     * Text field for the user's login.
+     */
     private JTextField textID;
+
+    /**
+     * Hidden text field for the password.
+     */
     private JPasswordField textPassword;
 
+    /**
+     * Constructor for the login panel.
+     *
+     * @param _listener the <code>ActionListener</code> that will treat the buttons' events.
+     *
+     * @see ActionListener
+     * @see LoginWindow
+     */
     public LoginPanel(ActionListener _listener)
     {
         JPanel titlePanel, loginPanel, buttonPanel;
@@ -55,10 +81,23 @@ public class LoginPanel extends JPanel
 
     }
 
+    /**
+     * Getter for the login entered.
+     *
+     * @return the login typed by the user (String).
+     */
     public String getLogin() { return this.textID.getText(); }
 
+    /**
+     * Getter for the password typed.
+     *
+     * @return the password as character's array (for safety reasons).
+     */
     public char[] getPassword() { return this.textPassword.getPassword(); }
 
+    /**
+     * Method to clear the field's content.
+     */
     public void clearGUIValues()
     {
         textID.setText("");

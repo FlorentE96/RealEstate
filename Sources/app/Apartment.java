@@ -1,16 +1,20 @@
 package app;
 
 /**
- * <b>app.Apartment is a subclass of app.Property</b>
- * <p>Each aparment has at least:
+ * <b>Apartment class.</b>
+ * <p>Apartment is a subclass of Property</p>
+ * <p>Each apartment has :</p>
  * <ul>
- *     <li>The floor of the appartment </li>
- *     <li>The number of the appartment </li>
- * </ul></p>
+ *     <li>The common data of all property (address, number of rooms, size, price and garage option)</li>
+ *     <li>A boolean representing the presence of a terrace</li>
+ *     <li>A boolean representing the presence of an elevator</li>
+ *     <li>A floor number (int)</li>
+ *     <li>An apartment number (int)</li>
+ * </ul>
  *
+ * @see Property
  *
  * @author  Florent
- * @author  Miron
  * @version 0.1
  */
 public class Apartment extends Property {
@@ -39,6 +43,21 @@ public class Apartment extends Property {
      */
     private boolean hasElevator;
 
+    /**
+     * Constructor for Apartment.
+     *
+     * @param _address The address of the apartment.
+     * @param _numRooms The number of rooms in the apartment.
+     * @param _price The price of the apartment.
+     * @param _size The size of the apartment.
+     * @param _hasGarage True if the apartment has a garage.
+     * @param _hasTerrace True if the apartment has a terrace.
+     * @param _hasElevator True if the apartment has an elevator.
+     * @param _floor The floor number of the apartment.
+     * @param _number The number of the apartment.
+     *
+     * @see Property#Property(String, int, double, double, boolean)
+     */
     public Apartment(String _address, int _numRooms, double _price, double _size, boolean _hasGarage, boolean _hasTerrace, boolean _hasElevator, int _floor, int _number){
         super(_address, _numRooms, _price, _size, _hasGarage);
         hasTerrace = _hasTerrace;
@@ -47,6 +66,12 @@ public class Apartment extends Property {
         number = _number;
     }
 
+    /**
+     * Overloaded constructor for Apartment.
+     * Default values are false for garage, apartment, garden, 0 floors, apt. 1.
+     *
+     * @see Property#Property()
+     */
     public Apartment()
     {
         super();
@@ -88,6 +113,22 @@ public class Apartment extends Property {
         this.hasElevator = hasElevator;
     }
 
+    /**
+     * Overriden method to retrieve CSV data in a String, from the apartment's attributes
+     * Data is the following, separated by commas :
+     * <ul>
+     *     <li>The identifier "apt" to explicit the type of property</li>
+     *     <li>The common data of all property (address, number of rooms, size, price and garage option)</li>
+     *     <li>The presence of a terrace</li>
+     *     <li>The presence of an elevator</li>
+     *     <li>The floor of the apartment</li>
+     *     <li>The number of the apartment</li>
+     * </ul>
+     *
+     * @return A string containing the CSV data.
+     *
+     * @see Property#getCSVData()
+     */
     @Override
     public String getCSVData() {
         return ("apt" + "," + super.getCSVData() + "," +

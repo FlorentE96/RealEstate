@@ -12,7 +12,6 @@ package app;
  * @author  Miron
  * @version 0.1
  */
-// TODO: Write JavaDoc
 public class House extends Property {
 
     /**

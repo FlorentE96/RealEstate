@@ -119,6 +119,7 @@ public class RegisterPropertyDialog
         return property;
     }
 
+    @Override
     public void actionPerformed(ActionEvent ev) {
         String command = ev.getActionCommand();
         if (command.equals("register")) {

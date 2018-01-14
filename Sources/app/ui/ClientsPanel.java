@@ -6,17 +6,51 @@ import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.event.*;
 
+/**
+ * <b>ClientsPanel is a panel listing all of an agent's clents.</b>
+ * <p>From there, the agent can :
+ * <ul>
+ *     <li>See all his clients and their informations</li>
+ *     <li>Remove one of his existing clients</li>
+ *     <li>Edit a client's information</li>
+ *     <li>Add a new client</li>
+ *     <li>Open a dialog listing a client's properties (see <code>PropertyListDialog</code> class)</li>
+ * </ul></p>
+ * <p>The panel can be updated to reflect the new client list using the <code>updateTable()</code> method.</p>
+ *
+ * @see Client
+ * @see PropertyListDialog
+ * @see MainWindow
+ *
+ * @author  Florent
+ * @version 1.0
+ */
 public class ClientsPanel
         extends JPanel
         implements MouseListener, ActionListener
 {
-    // variables d'instance - remplacez l'exemple qui suit par le vôtre
+    /**
+     * The table component, with the details of the clients
+     */
     private JTable clientTable;
+
+    /**
+     * The agent (user) of which the list of clients has to be displayed.
+     * It is passed via the constructor.
+     *
+     * @see ClientsPanel(Agent)
+     */
     private Agent agent;
+
+    /**
+     * Pop up menus for a right-click on a client or outside the list.
+     */
     private JPopupMenu rightClickMenu, rightClickMenuLimited;
 
     /**
-     * Constructeur d'objets de classe PainelConsulta
+     * Constructor for <code>ClientPanel</code>.
+     *
+     * @param _agent The agent (user) of which the list of clients has to be displayed.
      */
     public ClientsPanel(Agent _agent)
     {
@@ -32,7 +66,6 @@ public class ClientsPanel
         JMenuItem editClient = new JMenuItem("Edit Client");
         JMenuItem addClient = new JMenuItem("Add new client");
         JMenuItem addClient2 = new JMenuItem("Add new client"); // Can't add one item to 2 menus somehow
-//        JMenuItem addProperty = new JMenuItem("Add property to client");
 
         deleteClient.addActionListener(this);
         editClient.addActionListener(this);
@@ -56,7 +89,19 @@ public class ClientsPanel
         this.add(scrollPane);
     }
 
-    //getTableModel
+    /**
+     * Creates a model for displaying the client table.
+     * For each client, these fields are displayed :
+     * <ul>
+     *    <li>His ID</li>
+     *    <li>His name</li>
+     *    <li>His income</li>
+     *    <li>The number of property he owns</li>
+     * </ul>
+     * The cells of the table are not editable.
+     *
+     * @return The table model.
+     */
     private DefaultTableModel getTableModel(){
         String[] columnNames = {"ID","Name","Income","Num. Prop."};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0){
@@ -74,12 +119,33 @@ public class ClientsPanel
         return tableModel;
     }
 
+    /**
+     * Updates the table's information based on the agent.
+     */
     public void updateTable()
     {
         clientTable.setModel(getTableModel());
     }
 
-    public void mousePressed(MouseEvent e){ }
+    @Override
+    public void mousePressed(MouseEvent e) {}
+
+    /**
+     * Overridden method of <code>MouseListener</code>.
+     * The mouse event treated in this method are :
+     * <ul>
+     *     <li>A right-click : shows the appropriate pop-up menu depending on where the right-click was made.</li>
+     *     <li>A double left-click : opens the <code>PropertyListDialog</code> for the corresponding client.</li>
+     *     <li>A left click outside the table : clears the selection</li>
+     * </ul>
+     *
+     * @param e The <code>MouseEvent</code> which triggered the MouseListener.
+     *
+     * @see MouseListener
+     * @see PropertyListDialog
+     *
+     */
+    @Override
     public void mouseReleased(MouseEvent e) {
         Point point = e.getPoint();
         int rowAtPoint = clientTable.rowAtPoint(point);
@@ -107,10 +173,31 @@ public class ClientsPanel
             clientTable.clearSelection();
         }
     }
+
+    @Override
     public void mouseEntered(MouseEvent e) {}
+
+    @Override
     public void mouseExited(MouseEvent e) {}
+
+    @Override
     public void mouseClicked(MouseEvent e) {}
 
+    /**
+     * Overridden method of <code>ActionListener</code>.
+     * Treats the events triggered by the different items of the pop-up menus :
+     * <ul>
+     *     <li>Delete Client : removes the corresponding client from the agent's list</li>
+     *     <li>Edit Client : opens a <code>RegisterClientDialog</code> and passes the corresponding client
+     *     to its constructor</li>
+     *     <li>Add Client : opens a <code>RegisterClientDialog</code></li>
+     * </ul>
+     *
+     * @param e The <code>ActionEvent</code> which triggered the listener.
+     *
+     * @see RegisterClientDialog
+     */
+    @Override
     public void actionPerformed(ActionEvent e)
     {
         String command = e.getActionCommand();
