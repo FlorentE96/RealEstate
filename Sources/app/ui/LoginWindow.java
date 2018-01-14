@@ -2,7 +2,6 @@ package app.ui;
 
 import app.*;
 import javax.swing.*;
-import javax.swing.text.StyledEditorKit;
 import java.awt.event.*;
 import java.io.*;
 import java.util.Arrays;
@@ -37,16 +36,7 @@ public class LoginWindow
      * @see LoginWindow#makePanel()
      */
     private LoginPanel myLoginPanel;
-    /**
-     * A flag to know if an user has been correctly logged.
-     *
-     * @see LoginWindow#actionPerformed(ActionEvent)
-     *
-     */
-    private boolean isLogged;
 
-
-//    private String myKey;
     /**
      * Constructor of LoginWindow.
      * Sets the window's title, and configures the panes/menu.
@@ -55,13 +45,10 @@ public class LoginWindow
     public LoginWindow()
     {
         super("Login");
-//        myKey = "Mary has one cat"; // NOTE: has to be 16 bytes
-        isLogged = false;
 
         myLoginPanel = new LoginPanel(this);
         this.setResizable(false);
         this.setContentPane(makePanel());
-//        this.setJMenuBar(makeMenu());
         this.pack();
         this.setVisible(true);
     }
@@ -79,62 +66,24 @@ public class LoginWindow
         return mainPanel;
     }
 
-    private JMenuBar makeMenu()
-    {
-        JMenuBar mbr_barra = new JMenuBar();
-        JMenu fileMenu;
-        JMenuItem newUser, quit;
-
-
-        fileMenu = new JMenu("File");
-        mbr_barra.add(fileMenu);
-
-        newUser = new JMenuItem("New User");
-        quit = new JMenuItem("Quit");
-
-        fileMenu.add(newUser);
-        fileMenu.addSeparator();
-        fileMenu.add(quit);
-
-        newUser.setActionCommand("new");
-        newUser.addActionListener(this);
-        quit.setActionCommand("quit");
-        quit.addActionListener(this);
-
-        return mbr_barra;
-    }
-
     public void actionPerformed(ActionEvent e)
     {
         String command = e.getActionCommand();
-        if(command.equals("new"))
-        {
-        }
-        else if(command.equals("login"))
+        if(command.equals("login"))
         {
             String login = myLoginPanel.getLogin();
             char[] correctPassword = this.getPassword(login);
             if(correctPassword != null) {
                 char[] typedPassword = myLoginPanel.getPassword();
-                if (typedPassword.length != correctPassword.length) {
-                    isLogged = false;
-                } else {
-                    isLogged = true;
+                if (Arrays.equals(typedPassword, correctPassword)) {
                     this.setVisible(false);
                     Agent user = loadFromFile(myLoginPanel.getLogin());
                     MainWindow myMainWindow = new MainWindow(null, user);
                     saveToFile(user, myLoginPanel.getLogin());
                     System.exit(0);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Login or password incorrect.");
                 }
-            }
-            else
-            {
-                isLogged = false;
-            }
-
-            if(!isLogged)
-            {
-                JOptionPane.showMessageDialog(null, "Login or password incorrect.");
             }
         }
         else if(command.equals("register"))
@@ -165,8 +114,8 @@ public class LoginWindow
     {
         Agent agent = new Agent();
         File file = new File(_login + ".csv");
-        FileReader fr = null;
-        BufferedReader br = null;
+        FileReader fr;
+        BufferedReader br;
         String line;
         try {
             fr = new FileReader(file);
@@ -174,7 +123,7 @@ public class LoginWindow
 
             line = br.readLine();
 
-            int numCients = 0;
+            int numCients;
             { // to restrain the scope of csvData
                 String[] csvData = line.split(",");
                 agent.setID(Integer.parseInt(csvData[0]));
@@ -189,7 +138,7 @@ public class LoginWindow
                 line = br.readLine();
 
                 Client client = new Client();
-                int numProp = 0;
+                int numProp;
 
                 {
                     String[] csvData = line.split(",");
@@ -241,42 +190,31 @@ public class LoginWindow
 
                 agent.addClient(client);
             }
+            fr.close();
+            br.close();
             return agent;
         }
         catch (NumberFormatException | IOException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
             return null;
         }
-        finally {
-            try {
-                fr.close();
-                br.close();
-            }
-            catch(Exception ex) {}
-        }
     }
 
     private void saveToFile(Agent agent, String _login)
     {
         File file = new File(_login + ".csv");
-        FileWriter fw = null;
-        BufferedWriter bw = null;
+        FileWriter fw;
+        BufferedWriter bw;
         try {
             fw = new FileWriter(file, false);
             bw = new BufferedWriter (fw);
             String csvData = agent.getCSVData();
             bw.write(csvData);
+            bw.close();
+            fw.close();
         }
         catch(IOException ioEx) {
             JOptionPane.showMessageDialog(null, ioEx.getMessage());
-            return;
-        }
-        finally {
-            try {
-                bw.close();
-                fw.close();
-            }
-            catch(Exception ex) {}
         }
     }
 

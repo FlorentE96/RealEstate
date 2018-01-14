@@ -1,7 +1,6 @@
 package app;
 
 import app.ui.LoginWindow;
-import app.ui.MainWindow;
 
 import javax.swing.JFrame;
 

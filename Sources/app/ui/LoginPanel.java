@@ -1,6 +1,5 @@
 package app.ui;
 
-import app.*;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
@@ -10,7 +9,6 @@ public class LoginPanel extends JPanel
     // variables d'instance - remplacez l'exemple qui suit par le vôtre
     private JTextField textID;
     private JPasswordField textPassword;
-    private JButton buttonLogin, buttonRegister;
 
     public LoginPanel(ActionListener _listener)
     {
@@ -23,8 +21,8 @@ public class LoginPanel extends JPanel
 
         textID = new JTextField(15);
         textPassword= new JPasswordField(15);
-        buttonLogin = new JButton("Login");
-        buttonRegister = new JButton("Register");
+        JButton buttonLogin = new JButton("Login");
+        JButton buttonRegister = new JButton("Register");
 
         buttonLogin.setActionCommand("login");
         buttonLogin.addActionListener(_listener);

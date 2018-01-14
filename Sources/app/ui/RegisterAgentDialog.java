@@ -9,7 +9,6 @@ public class RegisterAgentDialog
         implements ActionListener
 {
     private AgentPanel registrationPanel;
-    private JButton valButton, canButton;
     private Agent agentReturned;
 
     public RegisterAgentDialog(JFrame owner)
@@ -21,8 +20,8 @@ public class RegisterAgentDialog
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
-        valButton = new JButton("Register!");
-        canButton = new JButton("Cancel");
+        JButton valButton = new JButton("Register!");
+        JButton canButton = new JButton("Cancel");
         valButton.addActionListener(this);
         canButton.addActionListener(this);
         valButton.setActionCommand("validate");

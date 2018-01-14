@@ -7,7 +7,6 @@ package app;
  *     <li>A boolean hasGarden </li>
  * </ul></p>
  *
- * @see
  *
  * @author  Florent
  * @author  Miron
@@ -19,14 +18,12 @@ public class House extends Property {
     /**
      * If the property has a garden : TRUE, else FALSE.
      *
-     * @see
      */
     private boolean hasGarden;
 
     /**
      * If the property has a pool : TRUE, else FALSE.
      *
-     * @see
      */
     private boolean hasPool;
 
@@ -68,10 +65,8 @@ public class House extends Property {
 
     @Override
     public String getCSVData() {
-        String csvData = "house" + "," + super.getCSVData() + "," +
+        return ("house" + "," + super.getCSVData() + "," +
                 Boolean.toString(this.hasGarden) + "," +
-                Boolean.toString(this.hasPool);
-
-        return csvData;
+                Boolean.toString(this.hasPool));
     }
 }

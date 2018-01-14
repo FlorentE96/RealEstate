@@ -3,12 +3,14 @@ package app.ui;
 import app.*;
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.event.*;
 import java.awt.event.*;
 import java.util.*;
 
 public class SalePanel
         extends JPanel
-        implements ActionListener {
+        implements ActionListener, ListSelectionListener
+{
     private JList<Property> propertyList;
     private Agent agent;
     private JButton makeSaleButton;
@@ -28,13 +30,17 @@ public class SalePanel
         propertyList.setModel(this.getListModel());
         propertyList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         propertyList.setVisibleRowCount(5);
+        propertyList.addListSelectionListener(this);
+
+        makeSaleButton.addActionListener(this);
+        makeSaleButton.setActionCommand("sell");
 
         this.setLayout(new BorderLayout());
         this.add(mainPanel);
     }
 
     private DefaultListModel<Property> getListModel() {
-        DefaultListModel<Property> listModel = new DefaultListModel<Property>();
+        DefaultListModel<Property> listModel = new DefaultListModel<>();
         if (clientFromCombo.getSelectedItem() != null) {
             ArrayList<Property> propertyList = (ArrayList<Property>) ((Client) clientFromCombo.getSelectedItem()).getPropertyList();
             for (Property property : propertyList) {
@@ -45,7 +51,7 @@ public class SalePanel
     }
 
     private DefaultComboBoxModel<Client> getComboBoxModel() {
-        DefaultComboBoxModel<Client> comboBoxModel = new DefaultComboBoxModel<Client>();
+        DefaultComboBoxModel<Client> comboBoxModel = new DefaultComboBoxModel<>();
         for (Client client : agent.getClientList()) {
             comboBoxModel.addElement(client);
         }
@@ -64,6 +70,17 @@ public class SalePanel
         clientFromCombo.setModel(this.getComboBoxModel());
     }
 
+    private void updateAdvisedPrice() {
+        int index = propertyList.getSelectedIndex();
+        if(index >= 0) {
+            priceField.setText(Double.toString(propertyList.getModel().getElementAt(index).getPrice()));
+        }
+        else
+        {
+            priceField.setText("");
+        }
+    }
+
     public void updateValues()
     {
         updatePropertyList();
@@ -73,8 +90,31 @@ public class SalePanel
 
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
-        JComboBox cb = (JComboBox) e.getSource();
+        if(command.equals("sell"))
+        {
+            if(clientFromCombo.getSelectedItem() == clientToCombo.getSelectedItem()) {
+                JOptionPane.showMessageDialog(null, "Please select a seller different from the buyer...");
+                return;
+            }
+            try {
+                agent.makeSale((Client) clientFromCombo.getSelectedItem(),
+                        (Client) clientToCombo.getSelectedItem(),
+                        propertyList.getModel().getElementAt(propertyList.getSelectedIndex()),
+                        Double.parseDouble(priceField.getText()));
+
+                JOptionPane.showMessageDialog(null, "Sold! Your balance has been updated.");
+            }
+            catch (NumberFormatException ex)
+            {
+                JOptionPane.showMessageDialog(null, "Please enter a correct amount");
+                return;
+            }
+        }
         this.updatePropertyList();
     }
 
+    public void valueChanged(ListSelectionEvent e)
+    {
+        this.updateAdvisedPrice();
+    }
 }

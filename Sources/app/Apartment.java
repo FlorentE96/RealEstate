@@ -8,7 +8,6 @@ package app;
  *     <li>The number of the appartment </li>
  * </ul></p>
  *
- * @see
  *
  * @author  Florent
  * @author  Miron
@@ -19,28 +18,24 @@ public class Apartment extends Property {
     /**
      * The floor of the apartment.
      *
-     * @see
      */
     private int floor;
 
     /**
      * The number of the apartment;
      *
-     * @see
      */
     private int number;
 
     /**
      * If the apartment has a terrace : TRUE, else FALSE.
      *
-     * @see
      */
     private boolean hasTerrace;
 
     /**
      * If the apartment has an elevator : TRUE, else FALSE.
      *
-     * @see
      */
     private boolean hasElevator;
 
@@ -95,12 +90,10 @@ public class Apartment extends Property {
 
     @Override
     public String getCSVData() {
-        String csvData = "apt" + "," + super.getCSVData() + "," +
+        return ("apt" + "," + super.getCSVData() + "," +
                 Boolean.toString(this.isHasTerrace()) + "," +
                 Boolean.toString(this.isHasElevator()) + "," +
                 Integer.toString(this.getFloor()) + "," +
-                Integer.toString(this.getNumber());
-
-        return csvData;
+                Integer.toString(this.getNumber()));
     }
 }

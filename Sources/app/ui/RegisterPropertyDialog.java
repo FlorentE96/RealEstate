@@ -79,6 +79,8 @@ public class RegisterPropertyDialog
                 double size = Double.parseDouble(sizeField.getText());
                 int numRooms = (int)numRoomsSpinner.getValue();
                 boolean hasGarage = garageCheckBox.isSelected();
+                if(typeComboBox.getSelectedItem() == null) // useless but removes a warning
+                    return;
                 if(typeComboBox.getSelectedItem().equals("House"))
                 {
                     boolean hasGarden = gardenCheckBox.isSelected();

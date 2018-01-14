@@ -31,28 +31,24 @@ public abstract class Property {
     /**
      * The number of the rooms.
      *
-     * @see
      */
     private int numRoom;
 
     /**
      * The price of the property, in $
      *
-     * @see
      */
     private double price;
 
     /**
      * The size of the property, in m².
      *
-     * @see
      */
     private double size;
 
     /**
      * If the property has a garage : TRUE, else  FALSE.
      *
-     * @see
      */
     private boolean hasGarage;
 
@@ -133,11 +129,10 @@ public abstract class Property {
 
     public String getCSVData()
     {
-        String csvData = this.getAddress()          + "," +
+        return (this.getAddress()          + "," +
                 Integer.toString(this.getNumRoom()) + "," +
                 Double.toString(this.getPrice())    + "," +
                 Double.toString(this.getSize())     + "," +
-                Boolean.toString(hasGarage);
-        return csvData;
+                Boolean.toString(hasGarage));
     }
 }

@@ -12,10 +12,8 @@ public class ClientsPanel
 {
     // variables d'instance - remplacez l'exemple qui suit par le vôtre
     private JTable clientTable;
-    private JScrollPane scrollPane;
-    private JDialog dialog;
     private Agent agent;
-    JPopupMenu rightClickMenu, rightClickMenuLimited;
+    private JPopupMenu rightClickMenu, rightClickMenuLimited;
 
     /**
      * Constructeur d'objets de classe PainelConsulta
@@ -25,7 +23,7 @@ public class ClientsPanel
         agent = _agent;
 
         clientTable = new JTable(getTableModel());
-        scrollPane = new JScrollPane(clientTable);
+        JScrollPane scrollPane = new JScrollPane(clientTable);
         clientTable.setFillsViewportHeight(true);
         rightClickMenu = new JPopupMenu();
         rightClickMenuLimited = new JPopupMenu();
@@ -33,16 +31,19 @@ public class ClientsPanel
         JMenuItem deleteClient = new JMenuItem("Delete app.Client");
         JMenuItem editClient = new JMenuItem("Edit app.Client");
         JMenuItem addClient = new JMenuItem("Add new client");
+        JMenuItem addClient2 = new JMenuItem("Add new client"); // Can't add one item to 2 menus somehow
         JMenuItem addProperty = new JMenuItem("Add property to client");
 
         deleteClient.addActionListener(this);
         editClient.addActionListener(this);
         addClient.addActionListener(this);
+        addClient2.addActionListener(this);
         addProperty.addActionListener(this);
 
         deleteClient.setActionCommand("delete client");
         editClient.setActionCommand("edit client");
         addClient.setActionCommand("add client");
+        addClient2.setActionCommand("add client");
         addProperty.setActionCommand("add property");
 
         rightClickMenu.add(deleteClient);
@@ -51,7 +52,7 @@ public class ClientsPanel
         rightClickMenu.addSeparator();
         rightClickMenu.add(addClient);
 
-        rightClickMenuLimited.add(addClient);
+        rightClickMenuLimited.add(addClient2);
 
         clientTable.addMouseListener(this);
 
@@ -81,20 +82,6 @@ public class ClientsPanel
         clientTable.setModel(getTableModel());
     }
 
-//    public String getCSVData() {
-//        String csvData = "";
-//        for (app.Client peca : clientList)
-//        {
-//            csvData += peca.getID() + "," +
-//                    peca.getName() + "," +
-//                    peca.getIncome() + "," +
-//                    "" + "," + // preferences
-//                    "" + "," + // status
-//                    "\n";
-//        }
-//        return csvData;
-//    }
-
     public void mousePressed(MouseEvent e)
     {
 
@@ -117,7 +104,7 @@ public class ClientsPanel
 
             if(e.getClickCount() == 2)
             {
-                // TODO : display list of properties
+                JDialog dialog = new PropertyListDialog(null, agent.getClient(clientTable.getSelectedRow()));
             }
         }
         else

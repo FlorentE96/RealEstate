@@ -12,7 +12,6 @@ public class MainWindow
     private AgentPanel myAgentPanel;
     private ClientsPanel myClientsPanel;
     private SalePanel mySalePanel;
-    private JTabbedPane myTabbedPane;
     private Agent user;
 
     public MainWindow(JFrame owner, Agent _user)
@@ -39,7 +38,7 @@ public class MainWindow
         myClientsPanel = new ClientsPanel(user);
         mySalePanel = new SalePanel(user);
 
-        myTabbedPane = new JTabbedPane();
+        JTabbedPane myTabbedPane = new JTabbedPane();
         myTabbedPane.addChangeListener(this);
         myTabbedPane.addTab("Performance", myAgentPanel);
         myTabbedPane.addTab("Clients", myClientsPanel);

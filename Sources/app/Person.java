@@ -104,8 +104,7 @@ public abstract class Person {
 
     public String getCSVData()
     {
-        String csvData = Integer.toString(this.getID()) + "," +
-                this.getName();
-        return csvData;
+        return (Integer.toString(this.getID()) + "," +
+                this.getName());
     }
 }
