@@ -28,27 +28,24 @@ public class ClientsPanel
         rightClickMenu = new JPopupMenu();
         rightClickMenuLimited = new JPopupMenu();
 
-        JMenuItem deleteClient = new JMenuItem("Delete app.Client");
-        JMenuItem editClient = new JMenuItem("Edit app.Client");
+        JMenuItem deleteClient = new JMenuItem("Delete Client");
+        JMenuItem editClient = new JMenuItem("Edit Client");
         JMenuItem addClient = new JMenuItem("Add new client");
         JMenuItem addClient2 = new JMenuItem("Add new client"); // Can't add one item to 2 menus somehow
-        JMenuItem addProperty = new JMenuItem("Add property to client");
+//        JMenuItem addProperty = new JMenuItem("Add property to client");
 
         deleteClient.addActionListener(this);
         editClient.addActionListener(this);
         addClient.addActionListener(this);
         addClient2.addActionListener(this);
-        addProperty.addActionListener(this);
 
         deleteClient.setActionCommand("delete client");
         editClient.setActionCommand("edit client");
         addClient.setActionCommand("add client");
         addClient2.setActionCommand("add client");
-        addProperty.setActionCommand("add property");
 
         rightClickMenu.add(deleteClient);
         rightClickMenu.add(editClient);
-        rightClickMenu.add(addProperty);
         rightClickMenu.addSeparator();
         rightClickMenu.add(addClient);
 
@@ -82,10 +79,7 @@ public class ClientsPanel
         clientTable.setModel(getTableModel());
     }
 
-    public void mousePressed(MouseEvent e)
-    {
-
-    }
+    public void mousePressed(MouseEvent e){ }
     public void mouseReleased(MouseEvent e) {
         Point point = e.getPoint();
         int rowAtPoint = clientTable.rowAtPoint(point);
@@ -105,6 +99,7 @@ public class ClientsPanel
             if(e.getClickCount() == 2)
             {
                 JDialog dialog = new PropertyListDialog(null, agent.getClient(clientTable.getSelectedRow()));
+                this.updateTable();
             }
         }
         else
@@ -137,12 +132,6 @@ public class ClientsPanel
             Client client = myRegisterClientDialog.getRegisteredClient();
             if(client != null)
                 agent.addClient(client);
-        }
-        else if(command.equals("add property"))
-        {
-            RegisterPropertyDialog myRegisterPropertyDialog = new RegisterPropertyDialog(null);
-            Property property = myRegisterPropertyDialog.getReturnedProperty();
-            agent.getClient(clientTable.getSelectedRow()).addProperty(property);
         }
         this.updateTable();
     }

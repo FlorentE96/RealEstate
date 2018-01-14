@@ -96,6 +96,11 @@ public class SalePanel
                 JOptionPane.showMessageDialog(null, "Please select a seller different from the buyer...");
                 return;
             }
+            if(propertyList.isSelectionEmpty())
+            {
+                JOptionPane.showMessageDialog(null, "Please select a property...");
+                return;
+            }
             try {
                 agent.makeSale((Client) clientFromCombo.getSelectedItem(),
                         (Client) clientToCombo.getSelectedItem(),

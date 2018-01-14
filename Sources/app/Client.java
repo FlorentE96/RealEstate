@@ -126,12 +126,18 @@ public class Client extends Person {
 
     public void removeProperty(int index)
     {
-        propertyList.remove(index);
+        if(index>=0 && index<getNumPropertiesOwned())
+            propertyList.remove(index);
     }
 
     public List<Property> getPropertyList()
     {
         return propertyList;
+    }
+
+    public Property getProperty(int index)
+    {
+        return propertyList.get(index);
     }
 
     public int getNumPropertiesOwned()

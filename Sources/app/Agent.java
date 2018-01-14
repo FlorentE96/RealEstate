@@ -88,7 +88,8 @@ public class Agent extends Person {
 
     public void removeClient(int index)
     {
-        clientList.remove(index);
+        if(index>=0 && index<getNumClients())
+            clientList.remove(index);
     }
 
     public Client getClient(int index)

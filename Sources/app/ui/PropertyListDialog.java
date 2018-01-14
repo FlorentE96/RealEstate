@@ -3,10 +3,16 @@ package app.ui;
 import app.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.*;
 
 public class PropertyListDialog
         extends JDialog
+    implements MouseListener, ActionListener
 {
+
+    private JPopupMenu rightClickMenu, rightClickMenuLimited;
+    private JTable propertyTable;
 
     private Client client;
 
@@ -14,12 +20,32 @@ public class PropertyListDialog
     {
         super(owner, "Property list of "+_client.getName());
 
-
+        rightClickMenu = new JPopupMenu();
+        rightClickMenuLimited = new JPopupMenu();
 
         client = _client;
-        JTable propertyTable = new JTable(this.getTableModel());
+        propertyTable = new JTable(this.getTableModel());
         JScrollPane scrollPane = new JScrollPane(propertyTable);
+        propertyTable.setFillsViewportHeight(true);
+        JMenuItem deleteProperty = new JMenuItem("Delete Property");
+        JMenuItem addProperty = new JMenuItem("Add New Property");
+        JMenuItem addProperty2 = new JMenuItem("Add New Property"); // Can't add one item to 2 menus somehow
 
+        deleteProperty.addActionListener(this);
+        addProperty.addActionListener(this);
+        addProperty2.addActionListener(this);
+
+        deleteProperty.setActionCommand("delete Property");
+        addProperty.setActionCommand("add Property");
+        addProperty2.setActionCommand("add Property");
+
+        rightClickMenu.add(deleteProperty);
+        rightClickMenu.addSeparator();
+        rightClickMenu.add(addProperty);
+
+        rightClickMenuLimited.add(addProperty2);
+
+        propertyTable.addMouseListener(this);
         this.add(scrollPane);
         this.pack();
         this.setResizable(true);
@@ -71,5 +97,62 @@ public class PropertyListDialog
             }
         }
         return tableModel;
+    }
+
+    public void updateTable()
+    {
+        propertyTable.setModel(getTableModel());
+    }
+
+    public void mouseReleased(MouseEvent e) {
+        Point point = e.getPoint();
+        int rowAtPoint = propertyTable.rowAtPoint(point);
+        if (e.isPopupTrigger())
+        {
+            if (rowAtPoint >= 0 && rowAtPoint < propertyTable.getRowCount()) {
+                rightClickMenu.show(e.getComponent(), e.getX(), e.getY());
+            }
+            else {
+                rightClickMenuLimited.show(e.getComponent(), e.getX(), e.getY());
+            }
+        }
+        if (rowAtPoint >= 0 && rowAtPoint < propertyTable.getRowCount())
+        {
+            propertyTable.setRowSelectionInterval(rowAtPoint, rowAtPoint);
+
+            if(e.getClickCount() == 2)
+            {
+                JDialog dialog = new RegisterPropertyDialog(null, client.getProperty(propertyTable.getSelectedRow()));
+                this.updateTable();
+            }
+        }
+        else
+        {
+            propertyTable.clearSelection();
+        }
+    }
+    public void mousePressed(MouseEvent e) {}
+    public void mouseEntered(MouseEvent e) {}
+    public void mouseExited(MouseEvent e) {}
+    public void mouseClicked(MouseEvent e) {}
+
+    public void actionPerformed(ActionEvent e)
+    {
+        String command = e.getActionCommand();
+        if(command.equals("delete Property"))
+        {
+            int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this property?","Confirm", JOptionPane.YES_NO_OPTION);
+            if(dialogResult == JOptionPane.YES_OPTION){
+                client.removeProperty(propertyTable.getSelectedRow());
+            }
+        }
+        else if(command.equals("add Property"))
+        {
+            RegisterPropertyDialog myRegisterPropertyDialog = new RegisterPropertyDialog(null);
+            Property property = myRegisterPropertyDialog.getReturnedProperty();
+            if(property != null)
+                client.addProperty(property);
+        }
+        this.updateTable();
     }
 }
