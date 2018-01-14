@@ -7,15 +7,15 @@ import javax.swing.table.*;
 import java.awt.event.*;
 
 /**
- * <b>ClientsPanel is a panel listing all of an agent's clents.</b>
- * <p>From there, the agent can :
+ * <b><code>ClientsPanel</code> is a panel listing all of an agent's clients.</b>
+ * <p>From there, the agent can :</p>
  * <ul>
- *     <li>See all his clients and their informations</li>
+ *     <li>See all his clients and their information</li>
  *     <li>Remove one of his existing clients</li>
  *     <li>Edit a client's information</li>
  *     <li>Add a new client</li>
  *     <li>Open a dialog listing a client's properties (see <code>PropertyListDialog</code> class)</li>
- * </ul></p>
+ * </ul>
  * <p>The panel can be updated to reflect the new client list using the <code>updateTable()</code> method.</p>
  *
  * @see Client
@@ -127,9 +127,6 @@ public class ClientsPanel
         clientTable.setModel(getTableModel());
     }
 
-    @Override
-    public void mousePressed(MouseEvent e) {}
-
     /**
      * Overridden method of <code>MouseListener</code>.
      * The mouse event treated in this method are :
@@ -173,6 +170,9 @@ public class ClientsPanel
             clientTable.clearSelection();
         }
     }
+
+    @Override
+    public void mousePressed(MouseEvent e) {}
 
     @Override
     public void mouseEntered(MouseEvent e) {}

@@ -5,11 +5,58 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * <b><code>RegisterPropertyDialog</code> is a dialog containing a form for registering a new property.</b>
+ * This is a modal dialog, which mean that as long as it is displayed, it blocks the execution of the calling thread.
+ * It is set visible directly upon creation and remains visible until either of the "register" or "cancel" button
+ * has been pressed.
+ *
+ * <p>Two types of properties exist : houses and apartment. Thus, we use a <code>CardLayout</code>
+ * to alter the form depending on the chosen type. The type is chosen via a <code>ComboBox</code>.</p>
+ *
+ * <p>The common fields to both types are :</p>
+ * <ul>
+ *     <li>The address</li>
+ *     <li>The numbers of rooms</li>
+ *     <li>The price</li>
+ *     <li>The size</li>
+ *     <li>The presence of a garage</li>
+ * </ul>
+ *
+ * <p>The additional fields for apartments are : </p>
+ * <ul>
+ *     <li>The presence of a terrace</li>
+ *     <li>The presence of an elevator</li>
+ *     <li>The floor</li>
+ *     <li>The number</li>
+ * </ul>
+ *
+ * <p>The additional fields for houses are : </p>
+ * <ul>
+ *     <li>The presence of a garden</li>
+ *     <li>The presence of a pool</li>
+ * </ul>
+ *
+ * <p>The registered property can be retrieved using the <code>getRegisteredClient</code> method.</p>
+ * <p>The dialog can be constructed with an existing property as a parameter, to edit this property instead of
+ * creating a new one. <strong>In that case, the type of property becomes read only.</strong></p>
+ *
+ * <p>The panel has been designed with IntelliJ's GUI designer.</p>
+ *
+ * @see Property
+ *
+ * @author  Florent
+ * @version 1.0
+ */
 public class RegisterPropertyDialog
         extends JDialog
         implements ActionListener, ItemListener
 {
+    /**
+     * Main panel designed with IntelliJ's GUI designer.
+     */
     private JPanel mainPanel;
+
     private JComboBox<String> typeComboBox;
     private JPanel cardPanel;
     private JPanel housePanel;
@@ -31,8 +78,17 @@ public class RegisterPropertyDialog
     private JPanel buttonPanel;
     private JSpinner numRoomsSpinner;
 
+    /**
+     * The registered/edited property
+     */
     private Property property;
 
+    /**
+     * Default constructor for class <code>RegisterPropertyDialog</code>.
+     * The dialog is not resizable.
+     *
+     * @param owner The frame that called the dialog.
+     */
     public RegisterPropertyDialog(JFrame owner) {
         super(owner, "Register Property");
 
@@ -61,6 +117,16 @@ public class RegisterPropertyDialog
         this.setVisible(true);
     }
 
+    /**
+     * Overloaded constructor of <code>RegisterPropertyDialog</code>.
+     * This constructor is used to create a dialog that edits an existing property.
+     * Depending on the property type, the dialogs fields are filled with the existing property's data,.
+     * The property type <strong>cannot</strong> be changed.
+     * The "Register" button's caption is changed to "Edit".
+     *
+     * @param owner The frame that called the dialog
+     * @param _property The property to be edited
+     */
     public RegisterPropertyDialog(JFrame owner, Property _property) {
         super(owner, "Register Property");
 
@@ -119,6 +185,18 @@ public class RegisterPropertyDialog
         return property;
     }
 
+    /**
+     * Overridden method of <code>ActionListener</code>.
+     * Treats the events triggered by the 2 buttons :
+     * <ul>
+     *     <li>Register/Edit : populates/edit the property with fields' data, and hides the dialog</code></li>
+     *     <li>Cancel : hides the window without instantiating/altering the property.</li>
+     * </ul>
+     *
+     * @param ev The <code>ActionEvent</code> which triggered the listener.
+     *
+     * @see Client#generateID()
+     */
     @Override
     public void actionPerformed(ActionEvent ev) {
         String command = ev.getActionCommand();
@@ -188,6 +266,15 @@ public class RegisterPropertyDialog
         }
     }
 
+    /**
+     * Overridden method of <code>ItemListener</code>
+     * Is triggered every time the property type is changed, and shows the appropriate card of the card panel.
+     *
+     * @param evt the <code>ItemEvent</code> that triggered the method.
+     *
+     * @see ItemEvent
+     * @see CardLayout
+     */
     @Override
     public void itemStateChanged(ItemEvent evt) {
         CardLayout cl = (CardLayout) (cardPanel.getLayout());

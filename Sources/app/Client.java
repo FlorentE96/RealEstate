@@ -46,7 +46,7 @@ public class Client extends Person {
      * The income and the property list are initialized to 0/empty.
      *
      * @param _name The name of the Client
-     * @param _ID   The ID of the app.Client
+     * @param _ID   The ID of the Client
      *
      * @see         Client#Client()
      * @see         Person#Person(String, int)
@@ -62,9 +62,9 @@ public class Client extends Person {
      * Overloaded constructor for class Client.
      * The property list is initialized to empty.
      *
-     * @param _name     The name of the app.Client
-     * @param _ID       The ID of the app.Client
-     * @param _income   The monthly income of the app.Client
+     * @param _name     The name of the Client
+     * @param _ID       The ID of the Client
+     * @param _income   The monthly income of the Client
      *
      * @see             Client#Client()
      * @see             Person#Person(String, int)

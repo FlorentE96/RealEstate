@@ -3,6 +3,7 @@ package app.ui;
 import app.*;
 import javax.swing.*;
 import javax.swing.event.*;
+import java.awt.*;
 import java.awt.event.*;
 
 /**
@@ -22,6 +23,7 @@ import java.awt.event.*;
  * @see AgentPanel
  * @see ClientsPanel
  * @see SalePanel
+ * @see JDialog
  *
  * @version 1.0
  */
@@ -29,11 +31,40 @@ public class MainWindow
         extends JDialog
         implements ActionListener, ChangeListener
 {
+    /**
+     * Th agent's personal data panel.
+     *
+     * @see AgentPanel
+     */
     private AgentPanel myAgentPanel;
+
+    /**
+     * The agen't client list panel.
+     *
+     * @see ClientsPanel
+     */
     private ClientsPanel myClientsPanel;
+
+    /**
+     * The sale panel.
+     *
+     * @see SalePanel
+     */
     private SalePanel mySalePanel;
+
+    /**
+     * The agent using the program.
+     */
     private Agent user;
 
+    /**
+     * Default constructor for class MainWindow.
+     *
+     * @param owner The frame that called the dialog.
+     * @param _user The agent logged in to the program.
+     *
+     * @see JDialog#JDialog(Frame, String)
+     */
     public MainWindow(JFrame owner, Agent _user)
     {
         super(owner, "Real Estate Manager");
@@ -48,6 +79,21 @@ public class MainWindow
         this.setVisible(true);
     }
 
+    /**
+     * Creates the main login panel.
+     * This panel contains 3 tabs :
+     * <ul>
+     *     <li>The Agent tab, with all the user's personal details</li>
+     *     <li>The Clients tab, with a list of his clients</li>
+     *     <li>The Sales tab, allowing him to perform a sale.</li>
+     * </ul>
+     *
+     * @return The main panel.
+     *
+     * @see AgentPanel
+     * @see ClientsPanel
+     * @see SalePanel
+     */
     private JPanel makePanel()
     {
         JPanel mainPanel = new JPanel();
@@ -59,7 +105,7 @@ public class MainWindow
 
         JTabbedPane myTabbedPane = new JTabbedPane();
         myTabbedPane.addChangeListener(this);
-        myTabbedPane.addTab("Performance", myAgentPanel);
+        myTabbedPane.addTab("Agent", myAgentPanel);
         myTabbedPane.addTab("Clients", myClientsPanel);
         myTabbedPane.addTab("Sale", mySalePanel);
 
@@ -68,6 +114,11 @@ public class MainWindow
         return mainPanel;
     }
 
+
+    /**
+     * Creates the main menu.
+     * This menu only contains an option to quit.
+     */
     private JMenuBar makeMenu()
     {
         JMenuBar mbr_barra = new JMenuBar();
@@ -87,7 +138,14 @@ public class MainWindow
 
         return mbr_barra;
     }
-
+    /**
+     * Overridden method of <code>ActionListener</code>.
+     * Treats the events triggered by the menu's items :
+     * If the "quit" item is selected, then the dialog is hidden. Being a model dialog, after it is hidden the focus
+     * is given back to the owner.
+     *
+     * @param e The <code>ActionEvent</code> which triggered the listener.
+     */
     @Override
     public void actionPerformed(ActionEvent e)
     {
@@ -98,10 +156,18 @@ public class MainWindow
         }
     }
 
+    /**
+     * Overriden method of <code>ChangeListener</code>.
+     * Is triggered whenever the dialogs's state has changed : for example the tab has been switched.
+     * When such an event occurs, the components of all the tabs are updated.
+     *
+     * @param e The <code>ChangeEvent</code> to be treated.
+     */
     @Override
     public void stateChanged(ChangeEvent e) {
         myAgentPanel.updateValues();
         myClientsPanel.updateTable();
         mySalePanel.updateValues();
+        // NOTE : For optimization, we could treat the event to update only a tab that has been selected.
     }
 }

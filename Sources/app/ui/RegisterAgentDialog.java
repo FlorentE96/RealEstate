@@ -4,11 +4,32 @@ import app.*;
 import javax.swing.*;
 import java.awt.event.*;
 
+/**
+ * <b><code>RegisterAgentDialog</code> is a dialog containing a form for registering a new agent.</b>
+ * This is a modal dialog, which mean that as long as it is displayed, it blocks the execution of the calling thread.
+ * It is set visible directly upon creation and remains visible until either of the "register" or "cancel" button
+ * has been pressed.
+ * <p>This dialog uses an <code>AgentPanel</code> in registration mode.</p>
+ * <p>The registered agent can be retrieved using the <code>getAgentReturned</code> method.</p>
+ *
+ * @see AgentPanel
+ * @see Agent
+ *
+ * @author  Florent
+ * @version 1.0
+ */
 public class RegisterAgentDialog
         extends JDialog
         implements ActionListener
 {
+    /**
+     * The <code>AgentPanel</code> used for filling the informations.
+     */
     private AgentPanel registrationPanel;
+
+    /**
+     * The registered agent.
+     */
     private Agent agentReturned;
 
     public RegisterAgentDialog(JFrame owner)
@@ -43,6 +64,18 @@ public class RegisterAgentDialog
         return agentReturned;
     }
 
+    /**
+     * Overridden method of <code>ActionListener</code>.
+     * Treats the events triggered by the 2 buttons :
+     * <ul>
+     *     <li>Register : retrieves the populated agent from the <code>AgentPanel</code>, and hides the dialog</li>
+     *     <li>Cancel : set the returned agent to <code>null</code> and hides the window</li>
+     * </ul>
+     *
+     * @param e The <code>ActionEvent</code> which triggered the listener.
+     *
+     * @see AgentPanel#getAgentFromForm()
+     */
     @Override
     public void actionPerformed(ActionEvent e)
     {

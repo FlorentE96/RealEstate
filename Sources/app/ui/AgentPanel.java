@@ -17,6 +17,8 @@ import app.*;
  * <p>By default, all the fields are disabled (read-only) but the panel can be created in registration mode, for
  * the registration of a new agent or the modification of an existing one.</p>
  *
+ * <p>The panel has been designed with IntelliJ's GUI designer.</p>
+ *
  * @see Agent
  * @see MainWindow
  *
